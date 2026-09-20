@@ -1,0 +1,101 @@
+.checkout-wrapper {
+  max-width: 650px;
+  margin: 2rem auto;
+  padding: 1rem;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+.card-pedido {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+  overflow: hidden;
+  border: 1px solid #eee;
+}
+.header-pedido {
+  background: #3e2723;
+  color: #fff;
+  padding: 1.5rem;
+  text-align: center;
+}
+.header-pedido h2 { margin: 0; font-size: 1.6rem; }
+.subtitulo { margin: 0.3rem 0 0 0; font-size: 0.9rem; color: #d7ccc8; }
+.producto-resumen {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.2rem 1.5rem;
+  border-bottom: 1px solid #eee;
+}
+.producto-resumen h3 { margin: 0; color: #4e342e; }
+.detalle-base { margin: 0.2rem 0 0 0; font-size: 0.85rem; color: #757575; }
+.precio-base { font-size: 1.3rem; font-weight: bold; color: #3e2723; }
+.seccion-opciones {
+  padding: 1.5rem;
+  background: #faf8f6;
+}
+.seccion-opciones h4, .seccion-pago h4 {
+  margin: 1rem 0 0.5rem 0;
+  font-size: 0.95rem;
+  color: #3e2723;
+}
+.seccion-opciones h4:first-child { margin-top: 0; }
+.grid-radios {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+}
+.lista-checkboxes {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  font-size: 0.9rem;
+}
+.control-select, .control-input, .control-texto {
+  width: 100%;
+  padding: 0.6rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 0.9rem;
+  box-sizing: border-box;
+}
+.seccion-pago {
+  background: #212121;
+  color: #fff;
+  padding: 1.5rem;
+}
+.seccion-pago h4 { color: #ffccbc; }
+.grid-inputs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.8rem;
+}
+.control-select.dark, .control-input.dark {
+  background: #333;
+  color: #fff;
+  border-color: #444;
+}
+.total-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid #444;
+  font-size: 1.1rem;
+}
+.monto { font-size: 1.6rem; font-weight: bold; color: #ffb74d; }
+.btn-confirmar {
+  width: 100%;
+  background: #d84315;
+  color: #fff;
+  border: none;
+  padding: 0.9rem;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: background 0.2s;
+}
+.btn-confirmar:hover { background: #bf360c; }

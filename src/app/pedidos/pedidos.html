@@ -1,0 +1,74 @@
+<div class="checkout-wrapper">
+  <div class="card-pedido">
+    <div class="header-pedido">
+      <h2>Estación Café</h2>
+      <p class="subtitulo">Personalización y Confirmación de Pedido</p>
+    </div>
+
+    <!-- Resumen del producto -->
+    <div class="producto-resumen">
+      <div>
+        <h3>Cappuccino Artesanal</h3>
+        <p class="detalle-base">Tamaño estándar (12 oz) | Doble Shot Espresso</p>
+      </div>
+      <div class="precio-base">S/ 12.00</div>
+    </div>
+
+    <!-- Opciones de Personalización de Cafetería -->
+    <div class="seccion-opciones">
+      <h4>1. Tipo de Leche</h4>
+      <div class="grid-radios">
+        <label><input type="radio" name="leche" value="entera" checked> Entera</label>
+        <label><input type="radio" name="leche" value="deslactosada"> Deslactosada</label>
+        <label><input type="radio" name="leche" value="avena"> Avena (+ S/ 2.00)</label>
+        <label><input type="radio" name="leche" value="almendras"> Almendras (+ S/ 2.00)</label>
+      </div>
+
+      <h4>2. Nivel de Endulzante</h4>
+      <select class="control-select">
+        <option value="sin_azucar">Sin azúcar</option>
+        <option value="regular" selected>Azúcar regular estándar</option>
+        <option value="panela">Panela orgánica</option>
+        <option value="stevia">Stevia</option>
+      </select>
+
+      <h4>3. Adicionales de Barista</h4>
+      <div class="lista-checkboxes">
+        <label><input type="checkbox"> Shot extra de café (+ S/ 3.00)</label>
+        <label><input type="checkbox"> Jarabe de vainilla (+ S/ 1.50)</label>
+        <label><input type="checkbox"> Canela espolvoreada</label>
+      </div>
+
+      <h4>4. Indicaciones especiales</h4>
+      <textarea class="control-texto" rows="2" maxlength="100" placeholder="Ej. Muy caliente, poca espuma, servir en taza..."></textarea>
+    </div>
+
+    <!-- Modalidad y Pasarela de Pago -->
+    <div class="seccion-pago">
+      <h4>Modalidad de Atención</h4>
+      <div class="grid-inputs">
+        <select class="control-select dark">
+          <option value="salon">Consumo en Salón (Mesa)</option>
+          <option value="llevar">Para llevar (Take Away)</option>
+          <option value="delivery">Envío Delivery</option>
+        </select>
+        <input type="text" class="control-input dark" placeholder="N° de mesa o dirección">
+      </div>
+
+      <h4>Método de Pago Digital Previo</h4>
+      <select class="control-select dark">
+        <option value="yape">Yape (QR digital)</option>
+        <option value="plin">Plin</option>
+        <option value="tarjeta">Tarjeta Débito / Crédito (Visa, Mastercard)</option>
+        <option value="caja">Efectivo en barra</option>
+      </select>
+
+      <div class="total-box">
+        <span>Total a Pagar:</span>
+        <span class="monto">S/ 12.00</span>
+      </div>
+
+      <button type="button" class="btn-confirmar">Confirmar y Pagar Orden</button>
+    </div>
+  </div>
+</div>
