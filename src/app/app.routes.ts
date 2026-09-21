@@ -1,7 +1,11 @@
 import { Routes } from '@angular/router';
-import { PedidosComponent } from './pedidos/pedidos';
+import { InicioComponent } from './inicio/inicio';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'pedidos', pathMatch: 'full' },
-  { path: 'pedidos', component: PedidosComponent }
+  { path: '', redirectTo: 'inicio', pathMatch: 'full' },
+  { path: 'inicio', component: InicioComponent },
+  { 
+    path: 'pedidos', 
+    loadComponent: () => import('./pedidos/pedidos').then(m => m.PedidosComponent) 
+  }
 ];

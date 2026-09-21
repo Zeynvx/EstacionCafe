@@ -1,0 +1,223 @@
+.pantalla-inicio {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* --- 1. Hero Banner Panorámico (Madera) --- */
+.hero-banner {
+  width: 100%;
+  min-height: 800px;
+  background-image: url('/fondo.jpg');
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.hero-acciones {
+  position: absolute;
+  top: 85%;
+  right: 7%;
+  transform: translateY(-50%);
+}
+
+.btn-hero-pedir {
+  display: inline-block;
+  background-color: var(--cafe-caramelo);
+  color: var(--blanco);
+  text-decoration: none;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: 1.5px;
+  padding: 0.85rem 2.2rem;
+  border-radius: 4px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.btn-hero-pedir:hover {
+  background-color: var(--cafe-hover);
+  transform: translateY(-2px);
+}
+
+/* --- 2. Cajitas Informativas Intermedias (Ampliadas) --- */
+.seccion-destacados {
+  max-width: 1220px;
+  margin: 5rem auto;
+  padding: 0 2rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.2rem;
+  position: relative;
+  z-index: 5;
+  box-sizing: border-box;
+}
+
+.tarjeta-destacado {
+  background-color: var(--blanco);
+  border: 1px solid var(--borde-suave);
+  min-height: 310px;
+  padding: 3.4rem 2.2rem;
+  border-radius: 14px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 28px rgba(44, 26, 17, 0.08);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  box-sizing: border-box;
+}
+
+.tarjeta-destacado:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 34px rgba(44, 26, 17, 0.12);
+}
+
+/* Contenedor circular elegante para los iconos SVG */
+.icono-contenedor {
+  width: 78px;
+  height: 78px;
+  border-radius: 50%;
+  background-color: var(--crema-delicass);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.4rem;
+  border: 1px solid var(--borde-suave);
+  flex-shrink: 0;
+}
+
+.icono-card-svg {
+  width: 44px;
+  height: 44px;
+  display: block;
+}
+
+.tarjeta-destacado h3 {
+  font-family: 'Poppins', sans-serif;
+  color: var(--cafe-chocolate);
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.8rem;
+  letter-spacing: 0.3px;
+}
+
+.tarjeta-destacado p {
+  font-family: 'Poppins', sans-serif;
+  color: var(--texto-secundario);
+  font-size: 0.92rem;
+  line-height: 1.55;
+  margin: 0;
+}
+
+/* --- 3. Franja Crema con Fotos Panorámicas --- */
+.menu-destacados {
+  width: 100%;
+  background-color: var(--crema-fondo);
+  padding: 3rem 4rem 4rem 4rem;
+  box-sizing: border-box;
+  margin-top: 0;
+  display: grid;
+  grid-template-columns: 68% 32%;
+  gap: 2.5rem;
+}
+
+.item-destacado {
+  display: block;
+  min-height: 280px;
+  border-radius: 6px;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  text-decoration: none;
+  box-shadow: 0 4px 18px rgba(44, 26, 17, 0.06);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.item-destacado:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 24px rgba(44, 26, 17, 0.1);
+}
+
+.destacado-desayuno {
+  background-image: url('/desayunos.jpg');
+}
+
+.destacado-postre {
+  background-image: url('/postres.jpg');
+}
+
+.item-destacado::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  padding: 1rem 1.4rem;
+  color: var(--blanco);
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: 1px;
+  background: linear-gradient(180deg, rgba(44, 26, 17, 0) 0%, rgba(44, 26, 17, 0.4) 100%);
+  width: 100%;
+  box-sizing: border-box;
+  text-align: left;
+}
+
+.destacado-desayuno::after {
+  content: 'Desayunos';
+}
+
+.destacado-postre::after {
+  content: 'Postres';
+}
+
+/* --- Ajustes Responsivos --- */
+@media (max-width: 1024px) {
+  .hero-banner {
+    min-height: 520px;
+  }
+  .hero-acciones {
+    top: 64%;
+    right: 5%;
+  }
+  .seccion-destacados {
+    gap: 1.5rem;
+    margin: 3.5rem auto;
+    padding: 0 1.5rem;
+  }
+  .tarjeta-destacado {
+    padding: 2.5rem 1.5rem;
+    min-height: 270px;
+  }
+  .menu-destacados {
+    padding: 2rem 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-banner {
+    min-height: 400px;
+  }
+  .hero-acciones {
+    position: static;
+    display: flex;
+    justify-content: center;
+    padding-top: 18rem;
+  }
+  .seccion-destacados {
+    grid-template-columns: 1fr;
+    margin: 2.5rem auto;
+    padding: 0 1rem;
+  }
+  .menu-destacados {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}

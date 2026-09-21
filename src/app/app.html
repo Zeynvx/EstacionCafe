@@ -1,1 +1,74 @@
+<!-- Barra marrón superior informativa estilo Delicass -->
+<div class="topbar-info">
+  <span>Para pedidos Delivery puedes escribirnos al WhatsApp 946050924 o llamar al (01)-4405050 de 7am a 10:30pm de lunes a domingo.</span>
+</div>
+
+<!-- Barra de navegación principal -->
+<header class="navbar-principal">
+  <!-- Bloque del Logo con Icono SVG integrado -->
+  <a routerLink="/inicio" class="logo-box">
+    <svg class="icono-cafe-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Base y cuerpo de la cafetera -->
+      <rect x="22" y="32" width="40" height="46" rx="6" fill="#A76328" stroke="#2C1A11" stroke-width="3"/>
+      <rect x="18" y="74" width="48" height="8" rx="2" fill="#4A2E1B" stroke="#2C1A11" stroke-width="2"/>
+      <rect x="26" y="36" width="32" height="12" rx="3" fill="#FAF5EE" stroke="#2C1A11" stroke-width="2"/>
+      
+      <!-- Manómetro / Reloj de presión -->
+      <circle cx="42" cy="42" r="4.5" fill="#FAF5EE" stroke="#2C1A11" stroke-width="1.8"/>
+      <line x1="42" y1="42" x2="44" y2="40" stroke="#C47D3B" stroke-width="1.5" stroke-linecap="round"/>
+      
+      <!-- Tazas sobre la bandeja superior -->
+      <ellipse cx="33" cy="29" rx="4" ry="2.5" fill="#FAF5EE" stroke="#2C1A11" stroke-width="1.5"/>
+      <ellipse cx="43" cy="29" rx="4" ry="2.5" fill="#FAF5EE" stroke="#2C1A11" stroke-width="1.5"/>
+      <ellipse cx="53" cy="29" rx="4" ry="2.5" fill="#FAF5EE" stroke="#2C1A11" stroke-width="1.5"/>
+      
+      <!-- Portafiltro y taza extrayendo -->
+      <rect x="36" y="48" width="12" height="6" rx="1.5" fill="#2C1A11"/>
+      <path d="M48 50 L58 52" stroke="#2C1A11" stroke-width="3" stroke-linecap="round"/>
+      <rect x="37" y="58" width="10" height="8" rx="2" fill="#FAF5EE" stroke="#2C1A11" stroke-width="1.5"/>
+      
+      <!-- Taza servida lateral -->
+      <ellipse cx="70" cy="74" rx="14" ry="4" fill="#FAF5EE" stroke="#2C1A11" stroke-width="2"/>
+      <path d="M59 62 C59 74, 81 74, 81 62 Z" fill="#FAF5EE" stroke="#2C1A11" stroke-width="2"/>
+      <ellipse cx="70" cy="62" rx="11" ry="3" fill="#4A2E1B"/>
+      <ellipse cx="70" cy="62" rx="6" ry="1.5" fill="#C47D3B"/>
+      <path d="M81 64 C86 64, 86 70, 81 71" stroke="#2C1A11" stroke-width="2" fill="none"/>
+      
+      <!-- Vapor -->
+      <path d="M68 56 Q66 51 69 47" stroke="#A76328" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+      <path d="M72 55 Q75 50 72 46" stroke="#A76328" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+      
+      <!-- Hojas decorativas de cafeto -->
+      <path d="M14 62 C10 52, 20 48, 20 48 C20 48, 22 58, 14 62 Z" fill="#A76328" stroke="#2C1A11" stroke-width="1.5"/>
+      <path d="M82 50 C88 44, 94 54, 86 60 C84 56, 82 50, 82 50 Z" fill="#A76328" stroke="#2C1A11" stroke-width="1.5"/>
+      
+      <!-- Granos de café -->
+      <ellipse cx="26" cy="85" rx="5" ry="3.5" fill="#4A2E1B" transform="rotate(-20 26 85)"/>
+      <ellipse cx="37" cy="88" rx="5" ry="3.5" fill="#2C1A11" transform="rotate(15 37 88)"/>
+    </svg>
+
+    <div class="texto-marca">
+      <span class="nombre-cafe">ESTACIÓN CAFÉ</span>
+      <span class="subtexto-cafe">• CAFETERÍA & BRUNCH •</span>
+    </div>
+  </a>
+
+  <!-- Enlaces de navegación -->
+  <nav class="menu-links">
+    <a routerLink="/inicio" routerLinkActive="activo">INICIO</a>
+    <a routerLink="/favoritos" routerLinkActive="activo">FAVORITOS</a>
+    <a routerLink="/pedidos" routerLinkActive="activo">¡PIDE AQUI!</a>
+    <a routerLink="/carta-cafes" routerLinkActive="activo">POSTRES & BRUNCH</a>
+    <a routerLink="/login" class="btn-login-nav">INICIAR SESIÓN</a>
+  </nav>
+</header>
+
+<!-- Contenedor dinámico de páginas de Angular -->
 <router-outlet></router-outlet>
+
+<!-- Botón flotante de WhatsApp -->
+<a href="https://wa.me/51946050924" target="_blank" class="btn-whatsapp-flotante" title="Escríbenos por WhatsApp">
+  <svg width="34" height="34" viewBox="0 0 24 24" fill="#FFFFFF" xmlns="http://www.w3.org/2000/svg">
+    <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2ZM12.04 20.15C10.56 20.15 9.11 19.76 7.85 19.01L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 14.99 3.8 13.47 3.8 11.91C3.8 7.37 7.5 3.67 12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15ZM16.56 14.39C16.31 14.26 15.09 13.66 14.86 13.58C14.63 13.5 14.47 13.46 14.3 13.71C14.14 13.96 13.67 14.51 13.53 14.67C13.39 14.84 13.24 14.86 12.99 14.73C12.74 14.61 11.95 14.35 11.01 13.51C10.27 12.85 9.78 12.04 9.63 11.79C9.49 11.54 9.62 11.41 9.74 11.28C9.85 11.17 9.99 10.99 10.11 10.85C10.24 10.71 10.28 10.61 10.36 10.45C10.45 10.28 10.4 10.14 10.34 10.02C10.28 9.9 9.8 8.71 9.6 8.22C9.4 7.74 9.2 7.8 9.05 7.79H8.58C8.42 7.79 8.15 7.85 7.93 8.09C7.7 8.34 7.07 8.93 7.07 10.13C7.07 11.34 7.95 12.5 8.07 12.66C8.2 12.83 9.79 15.28 12.24 16.33C12.82 16.58 13.27 16.73 13.63 16.84C14.22 17.03 14.75 17 15.18 16.94C15.65 16.87 16.63 16.35 16.83 15.78C17.04 15.21 17.04 14.72 16.98 14.62C16.91 14.52 16.81 14.51 16.56 14.39Z"/>
+  </svg>
+</a>
