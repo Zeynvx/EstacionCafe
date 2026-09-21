@@ -1,0 +1,65 @@
+<div class="container-fluid mt-4">
+
+    <!-- Filtros actualizados para cafetería -->
+    <div class="filtros text-center mb-4">
+        <button type="button" (click)="filtrar('todos')">Todos</button>
+        <button type="button" (click)="filtrar('cafes')">Cafés</button>
+        <button type="button" (click)="filtrar('postres')">Postres</button>
+        <button type="button" (click)="filtrar('bebidas')">Bebidas Frías</button>
+    </div>
+
+    <div class="row g-4 align-items-stretch">
+
+        <ng-container *ngFor="let producto of producto">
+    
+            <div class="col-md-3"
+                *ngIf="filtro === 'todos' || producto.categoria === filtro">
+        
+                <div class="menu-card">
+        
+                <div class="img-box">
+                    <img [src]="producto.imagen" [alt]="producto.nombre">
+                </div>
+        
+                <div class="info-box">
+                    <h3>{{ producto.nombre }}</h3>
+                    <p>{{ producto.descripcion }}</p>
+        
+                    <div class="contador">
+                    <button (click)="restar(producto)">-</button>
+                    <span>{{ producto.cantidad }}</span>
+                    <button (click)="sumar(producto)">+</button>
+                    </div>
+        
+                </div>
+        
+                </div>
+        
+            </div>
+    
+        </ng-container>
+    
+    </div>
+
+    <div class="carrito-box" *ngIf="obtenerCarrito().length > 0">
+        <h3>Mi pedido en Estación Café</h3>
+
+        <div class="carrito-item" *ngFor="let producto of obtenerCarrito()">
+            <div>
+                <strong>{{ producto.nombre }}</strong>
+                <p>{{ producto.cantidad }} x S/ {{ producto.precio }}</p>
+            </div>
+    
+          <span>S/ {{ producto.cantidad * producto.precio }}</span>
+        </div>
+    
+        <div class="carrito-total">
+            <strong>Total:</strong>
+            <strong>S/ {{ calcularTotal() }}</strong>
+        </div>
+    
+        <button class="btn-pedido" (click)="realizarPedido()">Confirmar pedido</button>
+        <button class="btn-vaciar" (click)="vaciarCarrito()">Vaciar carrito</button>
+    </div>
+
+</div>
