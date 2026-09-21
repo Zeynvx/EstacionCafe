@@ -1,0 +1,143 @@
+/* Franja marrón superior informativa estilo Delicass */
+.topbar-info {
+  background-color: var(--cafe-moka);
+  color: var(--crema-delicass);
+  text-align: center;
+  padding: 0.9rem 2rem;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.84rem;
+  font-weight: 400;
+  letter-spacing: 0.3px;
+  line-height: 1.4;
+}
+
+/* Navbar crema principal */
+.navbar-principal {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.1rem 4rem;
+  background-color: var(--crema-delicass);
+  border-bottom: 1px solid var(--borde-suave);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+/* Bloque del Logo (sin subrayado ni sombreado azul/morado) */
+.logo-box {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  text-decoration: none !important;
+  color: inherit;
+  cursor: pointer;
+}
+
+.logo-box:hover,
+.logo-box:focus,
+.logo-box:visited,
+.logo-box:active {
+  text-decoration: none !important;
+  color: inherit;
+}
+
+/* Icono SVG de la cafetera */
+.icono-cafe-svg {
+  width: 48px;
+  height: 48px;
+  display: block;
+  flex-shrink: 0;
+}
+
+/* Contenedor del texto del logo */
+.texto-marca {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none !important;
+}
+
+/* Título principal del logo */
+.nombre-cafe {
+  font-family: var(--fuente-logo, 'Cinzel Decorative', Georgia, serif);
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: var(--cafe-chocolate);
+  letter-spacing: 2px;
+  line-height: 1.1;
+  text-decoration: none !important;
+  display: block;
+}
+
+/* Subtítulo del logo */
+.subtexto-cafe {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: var(--cafe-caramelo);
+  letter-spacing: 2.8px;
+  margin-top: 3px;
+  text-align: center;
+  text-decoration: none !important;
+  display: block;
+}
+
+/* Enlaces de navegación */
+.menu-links {
+  display: flex;
+  align-items: center;
+  gap: 2.2rem;
+}
+
+.menu-links a {
+  font-family: 'Poppins', sans-serif;
+  text-decoration: none;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--cafe-chocolate);
+  letter-spacing: 0.4px;
+  transition: color 0.2s ease;
+}
+
+.menu-links a:hover,
+.menu-links a.activo {
+  color: var(--cafe-caramelo);
+}
+
+/* Botón Iniciar Sesión */
+.btn-login-nav {
+  background-color: var(--cafe-chocolate);
+  color: var(--blanco) !important;
+  font-weight: 600;
+  padding: 0.55rem 1.3rem;
+  border-radius: 4px;
+  letter-spacing: 0.8px;
+  transition: background-color 0.2s ease;
+}
+
+.btn-login-nav:hover {
+  background-color: var(--cafe-caramelo);
+}
+
+/* Botón flotante oficial de WhatsApp */
+.btn-whatsapp-flotante {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 60px;
+  height: 60px;
+  background-color: #25D366;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.3);
+  z-index: 999;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  text-decoration: none;
+}
+
+.btn-whatsapp-flotante:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 22px rgba(37, 211, 102, 0.45);
+}

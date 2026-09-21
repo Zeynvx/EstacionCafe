@@ -1,1 +1,35 @@
-/* You can add global styles to this file, and also import other style files */
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+  /* Variables CSS globales (estilo Delicass) para estandarizar colores en todo el proyecto */
+  :root {
+    /* Marrones principales para textos y fondos oscuros */
+    --cafe-moka: #4A2E1B;          /* Marrón para barra superior informativa */
+    --cafe-chocolate: #2C1A11;     /* Texto principal y títulos */
+
+    /* Acentos para botones interactivos */
+    --cafe-caramelo: #C47D3B;      /* Botón principal y acentos */
+    --cafe-hover: #A76328;         /* Efecto hover en botones */
+
+    /* Fondos claros tipo crema */
+    --crema-delicass: #FDF3E7;     /* Fondo del navbar */
+    --crema-fondo: #FAF5EE;        /* Fondo general de la página */
+    --blanco: #FFFFFF;             /* Fondo de tarjetas */
+
+    /* Bordes y textos secundarios */
+    --borde-suave: #EBD8C3;        /* Líneas de separación suaves */
+    --texto-secundario: #6E5D53;   /* Descripciones secundarias */
+  }
+
+  /* Reseteo básico del navegador */
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    background-color: var(--crema-fondo);
+    color: var(--cafe-chocolate);
+    font-family: 'Poppins', sans-serif;
+    min-height: 100vh;
+  }
