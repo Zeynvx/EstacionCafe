@@ -59,7 +59,7 @@
 
 /* Título principal del logo */
 .nombre-cafe {
-  font-family: var(--fuente-logo, 'Cinzel Decorative', Georgia, serif);
+  font-family: var(--fuente-logo, 'Cinzel Decorative', Georgia, serif), sans-serif;
   font-size: 1.45rem;
   font-weight: 700;
   color: var(--cafe-chocolate);
@@ -119,6 +119,99 @@
   background-color: var(--cafe-caramelo);
 }
 
+/* Footer */
+.footer-principal {
+  padding: 3.5rem 4rem 1.2rem;
+  background: var(--cafe-chocolate);
+  color: var(--crema-delicass);
+}
+
+.footer-contenido {
+  max-width: 1220px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.5fr repeat(3, 1fr);
+  gap: 3rem;
+}
+
+.footer-marca {
+  max-width: 230px;
+}
+
+.footer-nombre {
+  color: var(--blanco);
+  font-family: Georgia, serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: 1.8px;
+}
+
+.footer-marca p,
+.footer-columna p {
+  color: #d9c4b3;
+  font-size: 0.8rem;
+  line-height: 1.6;
+}
+
+.footer-marca p {
+  margin-top: 0.8rem;
+}
+
+.footer-columna {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.footer-columna h3 {
+  margin-bottom: 0.45rem;
+  color: #f2bd83;
+  font-size: 0.78rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.footer-columna a {
+  width: fit-content;
+  color: #f8e9da;
+  font-size: 0.82rem;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer-columna a:hover {
+  color: #f2bd83;
+}
+
+.footer-redes {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.35rem;
+}
+
+.footer-redes a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border: 1px solid #8e6d56;
+  border-radius: 50%;
+  font-size: 0.62rem;
+  font-weight: 700;
+}
+
+.footer-bottom {
+  max-width: 1220px;
+  margin: 3rem auto 0;
+  padding-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid #5a4030;
+  color: #bca291;
+  font-size: 0.7rem;
+}
+
 /* Botón flotante oficial de WhatsApp */
 .btn-whatsapp-flotante {
   position: fixed;
@@ -140,4 +233,24 @@
 .btn-whatsapp-flotante:hover {
   transform: scale(1.1);
   box-shadow: 0 6px 22px rgba(37, 211, 102, 0.45);
+}
+
+@media (max-width: 768px) {
+  .footer-principal {
+    padding: 3rem 1.5rem 1rem;
+  }
+
+  .footer-contenido {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem 1.5rem;
+  }
+
+  .footer-marca {
+    grid-column: 1 / -1;
+  }
+
+  .footer-bottom {
+    gap: 0.5rem;
+    flex-direction: column;
+  }
 }
