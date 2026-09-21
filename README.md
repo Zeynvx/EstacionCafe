@@ -1,59 +1,34 @@
-# EstacionCafe
+# Estación Café ☕
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.1.8.
+Este proyecto es un sistema web desarrollado en **Angular** (versión standalone) para la gestión de una cafetería, abarcando tanto la experiencia de pedidos de los clientes como el módulo de control y operaciones para el personal autorizado.
 
-## Development server
+---
 
-To start a local development server, run:
+## 🚀 Módulos del Sistema
 
-```bash
-ng serve
-```
+El proyecto se divide principalmente en dos vistas clave estructuradas mediante componentes standalone:
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+1. **Módulo de Pedidos (`/pedidos`)**:
+   - Interfaz orientada al cliente para la personalización de bebidas (tipo de leche, nivel de endulzante, adicionales de barista e indicaciones especiales).
+   - Selección de modalidad de atención (salón, para llevar o delivery) y pasarela de pago digital previa (Yape, Plin, tarjeta o efectivo en barra).
 
-## Code scaffolding
+2. **Módulo de Inicio de Sesión (`/login`)**:
+   - Portal de acceso exclusivo para el personal (Barista/Cocina y Administrador).
+   - Diseñado para proteger el módulo operativo y de control de stock frente a modificaciones de usuarios externos.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+---
 
-```bash
-ng generate component component-name
-```
+## 🛠️ Requisitos del Sistema
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+- **Node.js**: Versión v22.14.0 o superior recomendada.
+- **Angular CLI**: Versión 22.1.8.
 
-```bash
-ng generate --help
-```
+---
 
-## Building
+## ⚙️ Configuración y Ejecución Local
 
-To build the project run:
+Para poner en marcha el servidor de desarrollo en tu equipo local, sigue estos pasos:
 
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+1. **Instalar las dependencias** del proyecto:
+   ```bash
+   npm install

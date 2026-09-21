@@ -1,0 +1,73 @@
+.login-wrapper {
+  max-width: 450px;
+  margin: 3rem auto;
+  padding: 1rem;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+.card-login {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+  overflow: hidden;
+  border: 1px solid #eee;
+}
+.header-login {
+  background: #3e2723;
+  color: #fff;
+  padding: 1.8rem;
+  text-align: center;
+}
+.header-login h2 { margin: 0; font-size: 1.6rem; }
+.subtitulo { margin: 0.3rem 0 0 0; font-size: 0.9rem; color: #d7ccc8; }
+
+.seccion-formulario {
+  padding: 1.8rem;
+  background: #faf8f6;
+}
+.campo-grupo {
+  margin-bottom: 1.2rem;
+}
+.campo-grupo label {
+  display: block;
+  margin-bottom: 0.4rem;
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: #3e2723;
+}
+.control-input, .control-select {
+  width: 100%;
+  padding: 0.7rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 0.9rem;
+  box-sizing: border-box;
+}
+.control-input:focus, .control-select:focus {
+  outline: none;
+  border-color: #3e2723;
+}
+
+.seccion-acciones {
+  background: #212121;
+  color: #fff;
+  padding: 1.5rem;
+}
+.info-roles {
+  font-size: 0.85rem;
+  color: #b0bec5;
+  margin-bottom: 1rem;
+  line-height: 1.4;
+}
+.btn-ingresar {
+  width: 100%;
+  background: #d84315;
+  color: #fff;
+  border: none;
+  padding: 0.9rem;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.btn-ingresar:hover { background: #bf360c; }
