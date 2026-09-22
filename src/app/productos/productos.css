@@ -1,229 +1,348 @@
-/* Contenedor principal de favoritos */
-.pantalla-favoritos {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-  padding: 2rem 0;
-  background-color: var(--crema-fondo, #fcf9f5);
+/* CARTA BISTRÓ - ESTACIÓN CAFÉ */
+
+.carta-seccion {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 30px 15px 100px;
 }
 
-/* --- Filtros de Categorías --- */
-.filtros {
-  margin: 1.5rem 0 2.5rem 0;
+/* --- Encabezado --- */
+.carta-header {
+  text-align: center;
+  margin-bottom: 35px;
+}
+
+.header-adorno {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.header-adorno .linea {
+  display: block;
+  width: 40px;
+  height: 1px;
+  background-color: var(--cafe-caramelo, #c88141);
+  opacity: 0.5;
+}
+
+.header-adorno .adorno-icono {
+  font-size: 1rem;
+}
+
+.carta-header h2 {
+  font-size: 2.3rem;
+  font-weight: 800;
+  color: var(--cafe-chocolate, #3b2219);
+  letter-spacing: -0.5px;
+  margin: 0 0 8px 0;
+}
+
+.carta-header p {
+  font-size: 1rem;
+  color: #7a6a61;
+  margin: 0 auto;
+  max-width: 580px;
+  line-height: 1.5;
+}
+
+/* --- Filtros Elegantes con Subrayado / Píldoras --- */
+.carta-filtros {
   display: flex;
   justify-content: center;
-  gap: 1rem;
+  gap: 10px;
+  margin-bottom: 42px;
   flex-wrap: wrap;
 }
 
-.filtros button {
-  background-color: var(--blanco, #ffffff);
-  color: var(--cafe-chocolate, #2c1a11);
-  border: 1px solid var(--borde-suave, #e2d7cd);
-  padding: 0.7rem 1.8rem;
-  border-radius: 6px;
-  font-family: 'Poppins', sans-serif;
+.carta-filtros button {
+  background: transparent;
+  border: 1px solid #e5dbd0;
+  color: #5c473e;
+  padding: 8px 22px;
+  border-radius: 30px;
+  font-size: 0.92rem;
   font-weight: 600;
-  font-size: 0.95rem;
   cursor: pointer;
-  box-shadow: 0 2px 6px rgba(44, 26, 17, 0.04);
-  transition: all 0.2s ease;
+  transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.filtros button:hover, .filtros button.active {
-  background-color: var(--cafe-caramelo, #c88a53);
-  color: var(--blanco, #ffffff);
-  border-color: var(--cafe-caramelo, #c88a53);
-  transform: translateY(-2px);
+.carta-filtros button:hover {
+  border-color: var(--cafe-caramelo, #c88141);
+  color: var(--cafe-chocolate, #3b2219);
+  background-color: #faf5ee;
 }
 
-/* --- Tarjetas de Productos (Estilo similar a los destacados) --- */
-.menu-card {
-  background-color: var(--blanco, #ffffff);
-  border: 1px solid var(--borde-suave, #e2d7cd);
-  border-radius: 14px;
-  overflow: hidden;
-  height: 100%;
+.carta-filtros button.activo {
+  background-color: var(--cafe-chocolate, #3b2219);
+  border-color: var(--cafe-chocolate, #3b2219);
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(59, 34, 25, 0.18);
+}
+
+/* --- Grilla de Productos: 2 Columnas Horizontales --- */
+.carta-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 22px 26px;
+}
+
+@media (max-width: 900px) {
+  .carta-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* --- Tarjeta Bistró Horizontal --- */
+.bistro-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 16px;
+  border: 1px solid #ede4db;
   display: flex;
-  flex-direction: column;
-  box-shadow: 0 10px 28px rgba(44, 26, 17, 0.08);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-  box-sizing: border-box;
-}
-
-.menu-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 14px 34px rgba(44, 26, 17, 0.12);
-}
-
-.img-box {
-  display: flex;
-  justify-content: center;   
+  gap: 16px;
   align-items: center;
-  width: 100%;
-  height: 250px;
-  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(59, 34, 25, 0.04);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
 }
 
-.img-box img {
-  width: 40%;
+.bistro-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(59, 34, 25, 0.08);
+  border-color: #dfd0c1;
+}
+
+/* Thumbnail Cuadrado Compacto */
+.bistro-thumb {
+  width: 120px;
+  min-width: 120px;
+  height: 120px;
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: #f7f1eb;
+  position: relative;
+}
+
+.bistro-thumb img {
+  width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
   transition: transform 0.3s ease;
 }
 
-.menu-card:hover .img-box img {
-  transform: scale(1.03);
+.bistro-card:hover .bistro-thumb img {
+  transform: scale(1.06);
 }
 
-.info-box {
-  padding: 1.5rem 1.2rem 1.5rem 1.8rem;
+/* Detalle a la derecha */
+.bistro-detalle {
+  flex: 1;
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
-  box-sizing: border-box;
-  overflow: hidden;
+  min-width: 0;
 }
 
-.info-box h3 {
-  font-family: 'Poppins', sans-serif;
-  color: var(--cafe-chocolate, #2c1a11);
-  font-size: 1.15rem;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-  margin-left: 0;
-  letter-spacing: 0.3px;
-  word-break: break-word;
+.bistro-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 4px;
+}
+
+.bistro-nombre {
+  font-size: 1.12rem;
+  font-weight: 700;
+  color: var(--cafe-chocolate, #3b2219);
+  margin: 0;
   white-space: nowrap;
+  overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.info-box p {
-  font-family: 'Poppins', sans-serif;
-  color: var(--texto-secundario, #665c54);
-  font-size: 0.9rem;
-  margin-bottom: 0.8rem;
-  line-height: 1.5;
+.bistro-precio {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--cafe-caramelo, #c88141);
+  white-space: nowrap;
 }
 
-/* --- Contador de cantidad --- */
-.contador {
+.bistro-descripcion {
+  font-size: 0.86rem;
+  color: #7a6a61;
+  line-height: 1.4;
+  margin: 0 0 12px 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Pie de la card bistró */
+.bistro-acciones {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  gap: 12px;
   margin-top: auto;
-  padding-top: 1rem;
 }
 
-.contador button {
-  background-color: var(--crema-delicass, #f4eee9);
-  color: var(--cafe-chocolate, #2c1a11);
-  border: 1px solid var(--borde-suave, #e2d7cd);
-  width: 34px;
-  height: 34px;
-  border-radius: 6px;
-  font-size: 16px;
+.tag-categoria {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
   font-weight: 700;
+  color: #9c8b80;
+  background-color: #f8f4ef;
+  padding: 3px 9px;
+  border-radius: 8px;
+}
+
+/* Control Stepper compacto */
+.stepper {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #fbf7f2;
+  border: 1px solid #e4d7cc;
+  border-radius: 20px;
+  padding: 2px 5px;
+}
+
+.btn-step {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: none;
+  background: #ffffff;
+  color: var(--cafe-chocolate, #3b2219);
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  transition: all 0.15s ease;
 }
 
-.contador button:hover {
-  background-color: var(--cafe-caramelo, #c88a53);
-  color: white;
-  border-color: var(--cafe-caramelo, #c88a53);
+.btn-step:hover:not(:disabled) {
+  background-color: var(--cafe-chocolate, #3b2219);
+  color: #ffffff;
 }
 
-.contador span {
-  font-family: 'Poppins', sans-serif;
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--cafe-chocolate, #2c1a11);
-  min-width: 24px;
+.btn-step:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.step-valor {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--cafe-chocolate, #3b2219);
+  min-width: 14px;
   text-align: center;
 }
 
-/* --- Carrito Flotante --- */
-.carrito-box {
+/* --- Orden Flotante (Widget tipo Bottom-Sheet o Drawer sutil) --- */
+.orden-flotante {
   position: fixed;
   right: 25px;
   bottom: 25px;
-  width: 340px;
-  background-color: var(--cafe-chocolate, #2c1a11);
-  color: var(--blanco, #ffffff);
-  padding: 1.5rem;
-  border-radius: 14px;
-  box-shadow: 0 10px 30px rgba(44, 26, 17, 0.4);
+  width: 320px;
+  background: #2b1912;
+  color: #ffffff;
+  border-radius: 16px;
+  padding: 16px 18px;
+  box-shadow: 0 16px 36px rgba(43, 25, 18, 0.35);
   z-index: 1000;
-  font-family: 'Poppins', sans-serif;
+  animation: slideUp 0.25s ease-out;
 }
 
-.carrito-box h3 {
-  margin-bottom: 1rem;
-  font-size: 1.2rem;
-  font-weight: 600;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-  padding-bottom: 0.5rem;
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-.carrito-item {
+.orden-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 8px 0;
-  font-size: 0.9rem;
+  border-bottom: 1px solid rgba(255,255,255,0.12);
+  padding-bottom: 8px;
+  margin-bottom: 10px;
 }
 
-.carrito-item p {
-  margin: 2px 0 0;
-  font-size: 0.8rem;
-  color: #d1c7bc;
+.orden-header h4 {
+  margin: 0;
+  font-size: 0.98rem;
+  font-weight: 700;
 }
 
-.carrito-total {
+.btn-limpiar {
+  background: none;
+  border: none;
+  color: #c9b9ae;
+  font-size: 0.75rem;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.btn-limpiar:hover {
+  color: #ffffff;
+}
+
+.orden-lista {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 12px 0;
+  max-height: 160px;
+  overflow-y: auto;
+}
+
+.orden-lista li {
   display: flex;
   justify-content: space-between;
-  margin: 1.2rem 0;
-  font-size: 1.05rem;
+  font-size: 0.82rem;
+  padding: 4px 0;
+  color: #f1e9e2;
 }
 
-.btn-pedido {
+.orden-footer {
+  border-top: 1px dashed rgba(255,255,255,0.18);
+  padding-top: 10px;
+}
+
+.orden-total {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1rem;
+  margin-bottom: 10px;
+}
+
+.orden-total strong {
+  color: #f3c28a;
+}
+
+.btn-confirmar-orden {
   width: 100%;
-  background-color: var(--cafe-caramelo, #c88a53);
-  color: white;
+  background: var(--cafe-caramelo, #c88141);
+  color: #ffffff;
   border: none;
-  padding: 0.8rem;
-  border-radius: 6px;
-  font-family: 'Poppins', sans-serif;
+  padding: 9px;
+  border-radius: 8px;
   font-weight: 700;
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   cursor: pointer;
-  margin-bottom: 8px;
-  transition: background-color 0.2s ease;
+  transition: background 0.18s ease;
 }
 
-.btn-pedido:hover {
-  background-color: var(--cafe-hover, #b07440);
-}
-
-.btn-vaciar {
-  width: 100%;
-  background-color: transparent;
-  color: #d1c7bc;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  padding: 0.7rem;
-  border-radius: 6px;
-  font-family: 'Poppins', sans-serif;
-  font-size: 0.85rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.btn-vaciar:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-  color: white;
+.btn-confirmar-orden:hover {
+  background: #b36e30;
 }
