@@ -1,0 +1,32 @@
+<section class="promos-contenedor">
+  <div class="promos-header">
+    <span class="subtitulo-tag">OFERTAS EXCLUSIVAS</span>
+    <h2>Promos & Combos</h2>
+    <p>Lo mejor de nuestra carta en combinaciones hechas para disfrutar.</p>
+  </div>
+
+  <div class="promos-grid">
+    @for (item of combos; track item.id) {
+      <article class="promo-card">
+        <div class="promo-img-wrapper">
+          <img [src]="item.imagen" [alt]="item.titulo" class="promo-img" />
+          <span class="promo-badge">{{ item.badge }}</span>
+        </div>
+
+        <div class="promo-info">
+          <h3>{{ item.titulo }}</h3>
+          <p class="promo-desc">{{ item.descripcion }}</p>
+
+          <div class="promo-precios">
+            <span class="precio-antes">{{ item.precioAntes }}</span>
+            <span class="precio-actual">{{ item.precioPromo }}</span>
+          </div>
+
+          <a routerLink="/pedidos" class="btn-pedir-promo">
+            Pedir Combo
+          </a>
+        </div>
+      </article>
+    }
+  </div>
+</section>
