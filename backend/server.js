@@ -1,19 +1,19 @@
-// Servidor de la API para Estación Café
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
+const { sql, poolPromise } = require('./db');
 const fs = require('fs');
 const path = require('path');
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
-// Habilitar CORS para que Angular (puerto 4200) pueda consultar la API
 app.use(cors());
 app.use(express.json());
 
 const DATA_FILE = path.join(__dirname, 'data.json');
 
-// Datos base si aún no existe el archivo data.json
+// data inicial por si se borra el json
 const defaultData = {
 products: [],
 categories: [
@@ -32,7 +32,7 @@ suppliers: [],
 purchases: []
 };
 
-// Carga datos desde data.json o precarga el menu.json del frontend
+// lee el json local o jala la data del front si no existe
 function loadData() {
 if (!fs.existsSync(DATA_FILE)) {
     const menuPath = path.join(__dirname, '..', 'src', 'app', 'core', 'menu.json');
@@ -40,7 +40,7 @@ if (!fs.existsSync(DATA_FILE)) {
     try {
         defaultData.products = JSON.parse(fs.readFileSync(menuPath, 'utf8'));
     } catch (err) {
-        console.warn('No se pudo leer menu.json inicial');
+        console.warn('error leyendo menu.json');
     }
     }
     fs.writeFileSync(DATA_FILE, JSON.stringify(defaultData, null, 2));
@@ -49,30 +49,78 @@ if (!fs.existsSync(DATA_FILE)) {
 return JSON.parse(fs.readFileSync(DATA_FILE, 'utf8'));
 }
 
-// Guarda cambios en data.json cada vez que se agrega o edita algo
 function saveData(data) {
 fs.writeFileSync(DATA_FILE, JSON.stringify(data, null, 2));
 }
 
 let db = loadData();
 
-// Verificación de estado del servidor
+// health check
 app.get('/api/v1/health', (req, res) => {
 res.json({ status: 'OK', uptime: process.uptime() });
 });
 
-// Recursos definidos en el frontend (api.config.ts)
-const RESOURCES = ['products', 'categories', 'users', 'orders', 'stock', 'suppliers', 'purchases'];
+// endpoints conectados directo a RDS
+app.get('/api/v1/categories', async (req, res) => {
+try {
+    const pool = await poolPromise;
+    const result = await pool.request().query(`
+    SELECT 
+        CategoriaId AS id,
+        Nombre AS nombre,
+        EsPostre AS postre
+    FROM Categoria
+    `);
+    
+    // si hay data en aws mandamos eso, si no usamos local
+    if (result.recordset && result.recordset.length > 0) {
+    return res.json(result.recordset);
+    }
+    res.json(db.categories || []);
+} catch (err) {
+    console.error('fallo query categorias en aws:', err.message);
+    res.json(db.categories || []);
+}
+});
+
+app.get('/api/v1/products', async (req, res) => {
+try {
+    const pool = await poolPromise;
+    const result = await pool.request().query(`
+    SELECT 
+        ProductoId AS id,
+        Nombre AS nombre,
+        Descripcion AS descripcion,
+        CategoriaId AS categoriaId,
+        ImagenUrl AS imagenUrl,
+        Precio AS precio,
+        DescuentoPct AS descuentoPct,
+        Personalizable AS personalizable,
+        Activo AS activo
+    FROM Producto
+    WHERE Activo = 1
+    `);
+    
+    if (result.recordset && result.recordset.length > 0) {
+    return res.json(result.recordset);
+    }
+    res.json(db.products || []);
+} catch (err) {
+    console.error('fallo query productos en aws:', err.message);
+    res.json(db.products || []);
+}
+});
+
+// modulos con persistencia local
+const RESOURCES = ['users', 'orders', 'stock', 'suppliers', 'purchases'];
 
 RESOURCES.forEach((resource) => {
 const basePath = `/api/v1/${resource}`;
 
-  // Obtener todos
 app.get(basePath, (req, res) => {
     res.json(db[resource] || []);
 });
 
-  // Crear nuevo
 app.post(basePath, (req, res) => {
     const newItem = req.body;
     if (!db[resource]) db[resource] = [];
@@ -81,7 +129,6 @@ app.post(basePath, (req, res) => {
     res.status(201).json(newItem);
 });
 
-  // Actualizar por ID
 app.put(`${basePath}/:id`, (req, res) => {
     const id = req.params.id;
     const updatedItem = req.body;
@@ -96,7 +143,6 @@ app.put(`${basePath}/:id`, (req, res) => {
     res.json(updatedItem);
 });
 
-  // Eliminar por ID
 app.delete(`${basePath}/:id`, (req, res) => {
     const id = req.params.id;
     if (db[resource]) {
@@ -108,5 +154,5 @@ app.delete(`${basePath}/:id`, (req, res) => {
 });
 
 app.listen(PORT, () => {
-console.log(`Servidor de API corriendo en http://localhost:${PORT}/api/v1`);
+console.log(`Server corriendo en http://localhost:${PORT}/api/v1`);
 });
