@@ -1,5 +1,5 @@
 export const API_BASE_URL = 'http://localhost:3000/api/v1';
-export const API_MODE: 'mock' | 'http' = 'mock';
+export const API_MODE: 'mock' | 'http' = 'http';
 
 export const API_RESOURCES = [
   'products',

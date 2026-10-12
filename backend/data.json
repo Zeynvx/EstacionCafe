@@ -1,0 +1,328 @@
+{
+  "products": [
+    {
+      "imagen": "https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?w=400&q=80",
+      "precio": 6,
+      "descripcion": "Extracción pura, intensa y aromática con crema avellanada persistente.",
+      "personalizable": true,
+      "descuento": 0,
+      "nombre": "Café Expreso",
+      "adicionales": "Shot extra:2,Jarabe de vainilla:1.5,Canela:0",
+      "categoria": "cafes",
+      "id": 1
+    },
+    {
+      "imagen": "https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=400&q=80",
+      "precio": 8.5,
+      "descripcion": "Espresso doble con leche texturizada al vapor y abundante espuma sedosa.",
+      "personalizable": true,
+      "descuento": 0,
+      "nombre": "Capuchino Clásico",
+      "adicionales": "Shot extra:2,Jarabe de vainilla:1.5,Canela:0",
+      "categoria": "cafes",
+      "id": 2
+    },
+    {
+      "imagen": "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=400&q=80",
+      "precio": 7,
+      "descripcion": "Espresso balanceado con agua caliente a punto, de notas suaves y tostadas.",
+      "personalizable": true,
+      "descuento": 0,
+      "nombre": "Café Americano",
+      "adicionales": "Shot extra:2,Jarabe de vainilla:1.5,Canela:0",
+      "categoria": "cafes",
+      "id": 3
+    },
+    {
+      "imagen": "https://images.unsplash.com/photo-1485808191679-5f86510681a2?w=400&q=80",
+      "precio": 10.5,
+      "descripcion": "Vainilla suave, leche vaporizada, mancha de espresso y espiral de caramelo.",
+      "personalizable": true,
+      "descuento": 0,
+      "nombre": "Caramel Macchiato",
+      "adicionales": "Shot extra:2,Jarabe de vainilla:1.5,Canela:0",
+      "categoria": "cafes",
+      "id": 4
+    },
+    {
+      "imagen": "https://images.unsplash.com/photo-1578314675249-a6910f80cc4e?w=400&q=80",
+      "precio": 11,
+      "descripcion": "Combinación armoniosa de espresso, ganache de chocolate amargo y leche cremosa.",
+      "personalizable": true,
+      "descuento": 0,
+      "nombre": "Mocaccino Belga",
+      "adicionales": "Shot extra:2,Jarabe de vainilla:1.5,Canela:0",
+      "categoria": "cafes",
+      "id": 5
+    },
+    {
+      "imagen": "https://images.unsplash.com/photo-1577968897966-3d4325b36b61?w=400&q=80",
+      "precio": 9.5,
+      "descripcion": "Doble ristretto concentrado cubierto con una fina microespuma aterciopelada.",
+      "personalizable": true,
+      "descuento": 0,
+      "nombre": "Flat White Artesanal",
+      "adicionales": "Shot extra:2,Jarabe de vainilla:1.5,Canela:0",
+      "categoria": "cafes",
+      "id": 6
+    },
+    {
+      "imagen": "https://images.unsplash.com/photo-1588195538326-c5b1e9f80a1b?w=400&q=80",
+      "precio": 9,
+      "descripcion": "Bizcochuelo artesanal embebido en mezcla de tres leches y canela molida.",
+      "personalizable": false,
+      "descuento": 0,
+      "nombre": "Torta Tres Leches",
+      "adicionales": "",
+      "categoria": "postres",
+      "id": 7
+    },
+    {
+      "imagen": "https://images.unsplash.com/photo-1533134242443-d4fd215305ad?w=400&q=80",
+      "precio": 12,
+      "descripcion": "Base crocante de galleta, crema horneada de queso y trozos generosos de Oreo.",
+      "personalizable": false,
+      "descuento": 0,
+      "nombre": "Cheesecake de Oreo",
+      "adicionales": "",
+      "categoria": "postres",
+      "id": 8
+    },
+    {
+      "imagen": "https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=400&q=80",
+      "precio": 6.5,
+      "descripcion": "Hojaldrado francés crujiente por fuera, suave y aireado en su interior.",
+      "personalizable": false,
+      "descuento": 0,
+      "nombre": "Croissant Mantequilla",
+      "adicionales": "",
+      "categoria": "postres",
+      "id": 9
+    },
+    {
+      "imagen": "https://images.unsplash.com/photo-1607958996333-41aef7caefaa?w=400&q=80",
+      "precio": 7.5,
+      "descripcion": "Porción húmeda y casera aromatizada con canela, nueces tostadas y miel.",
+      "personalizable": false,
+      "descuento": 0,
+      "nombre": "Queque de Plátano & Nueces",
+      "adicionales": "",
+      "categoria": "postres",
+      "id": 10
+    },
+    {
+      "imagen": "https://images.unsplash.com/photo-1519915028121-7d3463d20b13?w=400&q=80",
+      "precio": 9.5,
+      "descripcion": "Masa sableé crocante, cuajada ácida de limón criollo y merengue tostado.",
+      "personalizable": false,
+      "descuento": 0,
+      "nombre": "Pie de Limón Clásico",
+      "adicionales": "",
+      "categoria": "postres",
+      "id": 11
+    },
+    {
+      "imagen": "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=400&q=80",
+      "precio": 8,
+      "descripcion": "Bizcocho denso de chocolate al 70% bañado con fudge tibio de la casa.",
+      "personalizable": false,
+      "descuento": 0,
+      "nombre": "Brownie con Fudge",
+      "adicionales": "",
+      "categoria": "postres",
+      "id": 12
+    },
+    {
+      "imagen": "https://images.unsplash.com/photo-1613478223719-2ab802602423?w=400&q=80",
+      "precio": 7,
+      "descripcion": "Zumo 100% puro de naranjas seleccionadas, recién exprimido al momento.",
+      "personalizable": true,
+      "descuento": 0,
+      "nombre": "Jugo de Naranja Natural",
+      "adicionales": "Shot extra:2,Jarabe de vainilla:1.5,Canela:0",
+      "categoria": "bebidas",
+      "id": 13
+    },
+    {
+      "imagen": "https://images.unsplash.com/photo-1536256263959-770b48d82b0a?w=400&q=80",
+      "precio": 12.5,
+      "descripcion": "Té verde ceremonial japonés batido con leche vegetal sobre cubos de hielo.",
+      "personalizable": true,
+      "descuento": 0,
+      "nombre": "Iced Matcha Latte",
+      "adicionales": "Shot extra:2,Jarabe de vainilla:1.5,Canela:0",
+      "categoria": "bebidas",
+      "id": 14
+    },
+    {
+      "imagen": "https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=400&q=80",
+      "precio": 13,
+      "descripcion": "Café helado batido con chocolate espeso, coronado con chantilly y virutas.",
+      "personalizable": true,
+      "descuento": 0,
+      "nombre": "Frappé de Moka & Crema",
+      "adicionales": "Shot extra:2,Jarabe de vainilla:1.5,Canela:0",
+      "categoria": "bebidas",
+      "id": 15
+    },
+    {
+      "imagen": "https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?w=400&q=80",
+      "precio": 10,
+      "descripcion": "Café infusionado en frío durante 18 horas; cuerpo sedoso y cero acidez.",
+      "personalizable": true,
+      "descuento": 0,
+      "nombre": "Cold Brew Especial",
+      "adicionales": "Shot extra:2,Jarabe de vainilla:1.5,Canela:0",
+      "categoria": "bebidas",
+      "id": 16
+    },
+    {
+      "imagen": "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=400&q=80",
+      "precio": 7.5,
+      "descripcion": "Refrescante limonada frappé macerada con hojas frescas de hierbabuena.",
+      "personalizable": true,
+      "descuento": 0,
+      "nombre": "Limonada de Hierbabuena",
+      "adicionales": "Shot extra:2,Jarabe de vainilla:1.5,Canela:0",
+      "categoria": "bebidas",
+      "id": 17
+    },
+    {
+      "imagen": "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=400&q=80",
+      "precio": 11,
+      "descripcion": "Espresso vertido sobre leche fría, hielo compacto y sirope de caramelo salado.",
+      "personalizable": true,
+      "descuento": 0,
+      "nombre": "Iced Caramel Latte",
+      "adicionales": "Shot extra:2,Jarabe de vainilla:1.5,Canela:0",
+      "categoria": "bebidas",
+      "id": 18
+    },
+    {
+      "nombre": "Desayunito Favorito",
+      "id": 101,
+      "precio": 17,
+      "personalizable": true,
+      "descuento": 26.470588235294112,
+      "categoria": "combos",
+      "imagen": "/combo1.jpg",
+      "descripcion": "Cappuccino cremoso caliente + Croissant artesanal horneado a la mantequilla.",
+      "adicionales": ""
+    },
+    {
+      "nombre": "Matcha & Dulce Tarde",
+      "id": 102,
+      "precio": 19.5,
+      "personalizable": true,
+      "descuento": 28.717948717948715,
+      "categoria": "combos",
+      "imagen": "/combo2.jpg",
+      "descripcion": "Matcha Latte ceremonial caliente con arte latte + Generosa porción de queque artesanal del día.",
+      "adicionales": ""
+    },
+    {
+      "nombre": "Generosa Porción",
+      "id": 103,
+      "precio": 33,
+      "personalizable": false,
+      "descuento": 24.242424242424242,
+      "categoria": "combos",
+      "imagen": "/combo3.jpg",
+      "descripcion": "2 panes artesanales con chicharrón crocante y sarza criolla + 1 jugo natural grande a elección.",
+      "adicionales": ""
+    },
+    {
+      "nombre": "Pecado de Chocolate",
+      "id": 104,
+      "precio": 28,
+      "personalizable": true,
+      "descuento": 21.785714285714285,
+      "categoria": "combos",
+      "imagen": "/combo4.jpg",
+      "descripcion": "Café bombón multicapa con crema batida y chocolate + Generosa porción de cheesecake de Oreo y manjar.",
+      "adicionales": ""
+    },
+    {
+      "nombre": "Club Sándwich Clásico",
+      "id": 105,
+      "precio": 26,
+      "personalizable": false,
+      "descuento": 21.153846153846157,
+      "categoria": "combos",
+      "imagen": "/combo5.jpg",
+      "descripcion": "Tradicional sándwich de 3 pisos en pan tostado con pollo, jamón, palta y vegetales + crocantes papas fritas.",
+      "adicionales": ""
+    }
+  ],
+  "categories": [
+    {
+      "id": "cafes",
+      "nombre": "Cafés de especialidad",
+      "postre": false
+    },
+    {
+      "id": "postres",
+      "nombre": "Postres y repostería",
+      "postre": true
+    },
+    {
+      "id": "bebidas",
+      "nombre": "Bebidas frías",
+      "postre": false
+    },
+    {
+      "id": "combos",
+      "nombre": "Combos",
+      "postre": false
+    }
+  ],
+  "users": [],
+  "orders": [
+    {
+      "nombre": "Mary",
+      "correo": "prado@gmail.com",
+      "telefono": "999888777",
+      "direccion": "",
+      "mesa": 1,
+      "entrega": "Mesa",
+      "pago": "Efectivo",
+      "userId": null,
+      "items": [
+        {
+          "id": "c361e773-6b0e-40ef-a710-f5bd03cc7d76",
+          "productoId": 1,
+          "nombre": "Café Expreso",
+          "precio": 6,
+          "cantidad": 2,
+          "leche": "Entera",
+          "endulzante": "Sin endulzante",
+          "extras": [],
+          "indicaciones": ""
+        }
+      ],
+      "id": "b138840f-5e11-42ba-a7eb-9a08e0e8de08",
+      "fecha": "2026-10-12T15:43:49.133Z",
+      "total": 12,
+      "estado": "Pendiente",
+      "pagado": false
+    }
+  ],
+  "stock": [
+    {
+      "id": "cafe",
+      "nombre": "Café en grano",
+      "unidad": "kg",
+      "cantidad": 12,
+      "minimo": 3
+    },
+    {
+      "id": "leche",
+      "nombre": "Leche entera",
+      "unidad": "L",
+      "cantidad": 20,
+      "minimo": 5
+    }
+  ],
+  "suppliers": [],
+  "purchases": []
+}
