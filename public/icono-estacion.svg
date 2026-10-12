@@ -1,0 +1,39 @@
+<svg class="icono-cafe-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+      <rect x="22" y="32" width="40" height="46" rx="6" fill="#A76328" stroke="#2C1A11" stroke-width="3"/>
+      <rect x="18" y="74" width="48" height="8" rx="2" fill="#4A2E1B" stroke="#2C1A11" stroke-width="2"/>
+      <rect x="26" y="36" width="32" height="12" rx="3" fill="#FAF5EE" stroke="#2C1A11" stroke-width="2"/>
+
+
+      <circle cx="42" cy="42" r="4.5" fill="#FAF5EE" stroke="#2C1A11" stroke-width="1.8"/>
+      <line x1="42" y1="42" x2="44" y2="40" stroke="#C47D3B" stroke-width="1.5" stroke-linecap="round"/>
+
+
+      <ellipse cx="33" cy="29" rx="4" ry="2.5" fill="#FAF5EE" stroke="#2C1A11" stroke-width="1.5"/>
+      <ellipse cx="43" cy="29" rx="4" ry="2.5" fill="#FAF5EE" stroke="#2C1A11" stroke-width="1.5"/>
+      <ellipse cx="53" cy="29" rx="4" ry="2.5" fill="#FAF5EE" stroke="#2C1A11" stroke-width="1.5"/>
+
+
+      <rect x="36" y="48" width="12" height="6" rx="1.5" fill="#2C1A11"/>
+      <path d="M48 50 L58 52" stroke="#2C1A11" stroke-width="3" stroke-linecap="round"/>
+      <rect x="37" y="58" width="10" height="8" rx="2" fill="#FAF5EE" stroke="#2C1A11" stroke-width="1.5"/>
+
+
+      <ellipse cx="70" cy="74" rx="14" ry="4" fill="#FAF5EE" stroke="#2C1A11" stroke-width="2"/>
+      <path d="M59 62 C59 74, 81 74, 81 62 Z" fill="#FAF5EE" stroke="#2C1A11" stroke-width="2"/>
+      <ellipse cx="70" cy="62" rx="11" ry="3" fill="#4A2E1B"/>
+      <ellipse cx="70" cy="62" rx="6" ry="1.5" fill="#C47D3B"/>
+      <path d="M81 64 C86 64, 86 70, 81 71" stroke="#2C1A11" stroke-width="2" fill="none"/>
+
+
+      <path d="M68 56 Q66 51 69 47" stroke="#A76328" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+      <path d="M72 55 Q75 50 72 46" stroke="#A76328" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+
+
+      <path d="M14 62 C10 52, 20 48, 20 48 C20 48, 22 58, 14 62 Z" fill="#A76328" stroke="#2C1A11" stroke-width="1.5"/>
+      <path d="M82 50 C88 44, 94 54, 86 60 C84 56, 82 50, 82 50 Z" fill="#A76328" stroke="#2C1A11" stroke-width="1.5"/>
+
+
+      <ellipse cx="26" cy="85" rx="5" ry="3.5" fill="#4A2E1B" transform="rotate(-20 26 85)"/>
+      <ellipse cx="37" cy="88" rx="5" ry="3.5" fill="#2C1A11" transform="rotate(15 37 88)"/>
+    </svg>

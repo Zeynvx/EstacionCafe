@@ -1,74 +1,135 @@
-<div class="checkout-wrapper">
-  <div class="card-pedido">
-    <div class="header-pedido">
-      <h2>Estación Café</h2>
-      <p class="subtitulo">Personalización y Confirmación de Pedido</p>
+<section class="container py-12">
+  <h1>Finaliza tu pedido</h1>
+  @if (result) {
+    <div class="card p-9 mt-7" role="status">
+      <h2>Pedido recibido</h2>
+      <p>Referencia: {{ result.id.slice(0, 8) }}</p>
+      <p>Total: {{ money(result.total) }} · Pago pendiente de confirmación.</p>
+      <p>Tu selección de pago quedó registrada. Esta versión de demostración no realiza cobros.</p>
+      <a routerLink="/productos" class="btn-solid theme-primary">Volver a la carta</a>
     </div>
-
-    <!-- Resumen del producto -->
-    <div class="producto-resumen">
-      <div>
-        <h3>Cappuccino Artesanal</h3>
-        <p class="detalle-base">Tamaño estándar (12 oz) | Doble Shot Espresso</p>
+  } @else if (!store.count()) {
+    <div class="alert mt-7">Tu carrito está vacío. <a routerLink="/productos">Ver la carta</a></div>
+  } @else {
+    <form #form="ngForm" (ngSubmit)="form.valid && finish()" class="row g-9 mt-5">
+      <div class="col-12 lg:col-8">
+        <div class="card p-7 d-grid gap-7">
+          <fieldset>
+            <legend>¿Cómo lo quieres recibir?</legend>
+            <div class="d-flex flex-wrap gap-5">
+              @for (type of ['Mesa', 'Delivery', 'Recojo']; track type) {
+                <label class="d-flex gap-3"
+                  ><input
+                    type="radio"
+                    class="radio"
+                    name="entrega"
+                    [(ngModel)]="data.entrega"
+                    [value]="type"
+                  />{{ type }}</label
+                >
+              }
+            </div>
+          </fieldset>
+          <label
+            >Nombres<input
+              class="form-control"
+              name="nombre"
+              [(ngModel)]="data.nombre"
+              required
+              maxlength="100"
+              autocomplete="name" /></label
+          ><label
+            >Correo<input
+              class="form-control"
+              name="correo"
+              type="email"
+              email
+              [(ngModel)]="data.correo"
+              required
+              autocomplete="email" /></label
+          ><label
+            >Teléfono<input
+              class="form-control"
+              name="telefono"
+              type="tel"
+              [(ngModel)]="data.telefono"
+              required
+              pattern="[+0-9 ()-]{7,20}"
+              autocomplete="tel"
+          /></label>
+          @if (data.entrega === 'Mesa') {
+            <label
+              >Número de mesa<input
+                class="form-control"
+                name="mesa"
+                type="number"
+                [(ngModel)]="data.mesa"
+                min="1"
+                max="100"
+                required
+            /></label>
+          } @else {
+            <label
+              >Dirección<input
+                class="form-control"
+                name="direccion"
+                [(ngModel)]="data.direccion"
+                required
+                maxlength="200"
+                autocomplete="street-address"
+            /></label>
+            @if (data.entrega === 'Recojo') {
+              <p class="fs-sm">
+                Recogerás tu pedido en Estación Café. La dirección se conserva como dato de
+                contacto.
+              </p>
+            }
+          }
+          <fieldset>
+            <legend>Método de pago</legend>
+            @for (
+              method of ['Billetera digital', 'Tarjeta crédito / débito', 'Efectivo'];
+              track method
+            ) {
+              <label class="d-flex gap-3 mb-4"
+                ><input
+                  type="radio"
+                  class="radio"
+                  name="pago"
+                  [(ngModel)]="data.pago"
+                  [value]="method"
+                />{{ method }}</label
+              >
+            }
+          </fieldset>
+          <p class="alert theme-info">
+            Demostración: el pedido se registra en este navegador. No se realizan cobros ni se
+            solicitan datos de tarjeta.
+          </p>
+        </div>
       </div>
-      <div class="precio-base">S/ 12.00</div>
-    </div>
-
-    <!-- Opciones de Personalización de Cafetería -->
-    <div class="seccion-opciones">
-      <h4>1. Tipo de Leche</h4>
-      <div class="grid-radios">
-        <label><input type="radio" name="leche" value="entera" checked> Entera</label>
-        <label><input type="radio" name="leche" value="deslactosada"> Deslactosada</label>
-        <label><input type="radio" name="leche" value="avena"> Avena (+ S/ 2.00)</label>
-        <label><input type="radio" name="leche" value="almendras"> Almendras (+ S/ 2.00)</label>
-      </div>
-
-      <h4>2. Nivel de Endulzante</h4>
-      <select class="control-select">
-        <option value="sin_azucar">Sin azúcar</option>
-        <option value="regular" selected>Azúcar regular estándar</option>
-        <option value="panela">Panela orgánica</option>
-        <option value="stevia">Stevia</option>
-      </select>
-
-      <h4>3. Adicionales de Barista</h4>
-      <div class="lista-checkboxes">
-        <label><input type="checkbox"> Shot extra de café (+ S/ 3.00)</label>
-        <label><input type="checkbox"> Jarabe de vainilla (+ S/ 1.50)</label>
-        <label><input type="checkbox"> Canela espolvoreada</label>
-      </div>
-
-      <h4>4. Indicaciones especiales</h4>
-      <textarea class="control-texto" rows="2" maxlength="100" placeholder="Ej. Muy caliente, poca espuma, servir en taza..."></textarea>
-    </div>
-
-    <!-- Modalidad y Pasarela de Pago -->
-    <div class="seccion-pago">
-      <h4>Modalidad de Atención</h4>
-      <div class="grid-inputs">
-        <select class="control-select dark">
-          <option value="salon">Consumo en Salón (Mesa)</option>
-          <option value="llevar">Para llevar (Take Away)</option>
-          <option value="delivery">Envío Delivery</option>
-        </select>
-        <input type="text" class="control-input dark" placeholder="N° de mesa o dirección">
-      </div>
-
-      <h4>Método de Pago Digital Previo</h4>
-      <select class="control-select dark">
-        <option value="yape">Yape (QR digital)</option>
-        <option value="plin">Plin</option>
-        <option value="tarjeta">Tarjeta Débito / Crédito (Visa, Mastercard)</option>
-        <option value="caja">Efectivo en barra</option>
-      </select>
-
-      <div class="total-box">
-        <span>Total a Pagar:</span>
-        <span class="monto">S/ 12.00</span>
-      </div>
-
-      <button type="button" class="btn-confirmar">Confirmar y Pagar Orden</button>
-    </div>
-  </div>
-</div>
+      <aside class="col-12 lg:col-4">
+        <div class="card p-7">
+          <h2 class="fs-xl">Resumen</h2>
+          @for (l of store.cart(); track l.id) {
+            <div class="border-bottom py-4">
+              <strong>{{ l.cantidad }} × {{ l.nombre }}</strong>
+              <p class="fs-sm mb-3">
+                {{ l.leche }} · {{ l.endulzante }} {{ l.extras.join(', ') }} {{ l.indicaciones }}
+              </p>
+              <span>{{ money(l.precio * l.cantidad) }}</span>
+            </div>
+          }
+          <p class="fs-xl fw-bold mt-7">Total {{ money(store.cartTotal()) }}</p>
+          <p class="fs-sm">Delivery sin cargo en esta demostración.</p>
+          @if (error) {
+            <p role="alert" class="fg-danger">{{ error }}</p>
+          }
+          <button class="btn-solid theme-primary" [disabled]="form.invalid">
+            Finalizar pedido
+          </button>
+        </div>
+      </aside>
+    </form>
+  }
+</section>

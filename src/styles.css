@@ -1,35 +1,49 @@
-  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
-
-  /* Variables CSS globales (estilo Delicass) para estandarizar colores en todo el proyecto */
-  :root {
-    /* Marrones principales para textos y fondos oscuros */
-    --cafe-moka: #4A2E1B;          /* Marrón para barra superior informativa */
-    --cafe-chocolate: #2C1A11;     /* Texto principal y títulos */
-
-    /* Acentos para botones interactivos */
-    --cafe-caramelo: #C47D3B;      /* Botón principal y acentos */
-    --cafe-hover: #A76328;         /* Efecto hover en botones */
-
-    /* Fondos claros tipo crema */
-    --crema-delicass: #FDF3E7;     /* Fondo del navbar */
-    --crema-fondo: #FAF5EE;        /* Fondo general de la página */
-    --blanco: #FFFFFF;             /* Fondo de tarjetas */
-
-    /* Bordes y textos secundarios */
-    --borde-suave: #EBD8C3;        /* Líneas de separación suaves */
-    --texto-secundario: #6E5D53;   /* Descripciones secundarias */
+:root,
+:host {
+  --bs-primary-base: #774322;
+  --bs-primary-bg: #774322;
+  --bs-primary-fg: #774322;
+  --bs-primary-fg-emphasis: #4a2e1b;
+  --bs-primary-bg-subtle: #fdf3e7;
+  --bs-primary-bg-muted: #ebd8c3;
+  --bs-primary-border: #c49b75;
+  --bs-primary-focus-ring: #a76328;
+  --bs-primary-contrast: #ffffff;
+  --bs-bg-body: #faf5ee;
+  --bs-fg-body: #2c1a11;
+  --bs-body-font-family: 'Segoe UI', sans-serif;
+  --bs-border-color: #ebd8c3;
+  --bs-link-color: #774322;
+  --bs-link-hover-color: #4a2e1b;
+}
+.hero {
+  min-height: min(65vw, 820px);
+  background: url('/fondo.jpg') center top / cover no-repeat;
+}
+.product-image {
+  height: 240px;
+  object-fit: cover;
+}
+.card {
+  --bs-card-bg: #fffdf9;
+}
+.dialog {
+  max-width: min(720px, calc(100vw - 2rem));
+}
+.drawer {
+  --bs-drawer-width: 460px;
+}
+a {
+  text-underline-offset: 0.2em;
+}
+input,
+select,
+textarea {
+  margin-top: 0.35rem;
+}
+@media (max-width: 575px) {
+  .hero {
+    min-height: 440px;
+    background-position: center;
   }
-
-  /* Reseteo básico del navegador */
-  * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
-
-  body {
-    background-color: var(--crema-fondo);
-    color: var(--cafe-chocolate);
-    font-family: 'Poppins', sans-serif;
-    min-height: 100vh;
-  }
+}

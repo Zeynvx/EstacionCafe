@@ -1,1 +1,32 @@
-<p>dashboard works!</p>
+<p class="fg-primary fw-semibold">TU CAFETERÍA, DE UN VISTAZO</p>
+<h1>Resumen</h1>
+<p class="mb-9">Bienvenido, {{ store.user()?.nombre }}. Así va Estación Café.</p>
+<div class="row g-7">
+  <div class="col-12 md:col-6">
+    <article class="card p-9">
+      <span>Pedidos en curso</span><strong class="fs-4xl fg-primary">{{ pending }}</strong
+      ><a routerLink="/admin/pedidos">Ver pedidos</a>
+    </article>
+  </div>
+  @if (store.canEditOrders()) {
+    <div class="col-12 md:col-6">
+      <article class="card p-9">
+        <span>Importe cobrado</span><strong class="fs-4xl fg-primary">{{ money(sales) }}</strong
+        ><small>Pagos confirmados, sin cancelados</small>
+      </article>
+    </div>
+  }
+  @if (store.allowed('stock')) {
+    <div class="col-12">
+      <article class="card p-9">
+        <h2 class="fs-xl">Atención al stock</h2>
+        @for (s of low; track s.id) {
+          <p>{{ s.nombre }}: {{ s.cantidad }} {{ s.unidad }} · mínimo {{ s.minimo }}</p>
+        } @empty {
+          <p>Todos los insumos están por encima del mínimo.</p>
+        }
+        <a routerLink="/admin/stock">Consultar stock</a>
+      </article>
+    </div>
+  }
+</div>

@@ -1,0 +1,87 @@
+<section class="container py-12">
+  <div class="d-flex justify-content-between mb-9">
+    <h1>Mi perfil</h1>
+    <button class="btn-outline theme-primary" (click)="logout()">Cerrar sesión</button>
+  </div>
+  <div class="row g-9">
+    <div class="col-12 lg:col-5">
+      <form #f="ngForm" (ngSubmit)="f.valid && save()" class="card p-7 d-grid gap-5">
+        <h2 class="fs-xl">Mis datos</h2>
+        <label
+          >Nombres<input
+            class="form-control"
+            name="nombre"
+            [(ngModel)]="data.nombre"
+            required /></label
+        ><label>Correo<input class="form-control" [value]="data.correo" readonly /></label
+        ><label
+          >Teléfono<input
+            class="form-control"
+            name="telefono"
+            [(ngModel)]="data.telefono"
+            pattern="[+0-9 ()-]{7,20}" /></label
+        ><label
+          >Dirección<input
+            class="form-control"
+            name="direccion"
+            [(ngModel)]="data.direccion"
+            maxlength="200"
+        /></label>
+        <h3 class="fs-lg mt-5">Cambiar contraseña</h3>
+        <label
+          >Contraseña actual<input
+            class="form-control"
+            type="password"
+            name="current"
+            [(ngModel)]="current"
+            [required]="!!password"
+            autocomplete="current-password" /></label
+        ><label
+          >Nueva contraseña<input
+            class="form-control"
+            type="password"
+            name="password"
+            [(ngModel)]="password"
+            minlength="8"
+            autocomplete="new-password" /></label
+        ><label
+          >Repetir nueva contraseña<input
+            class="form-control"
+            type="password"
+            name="repeat"
+            [(ngModel)]="repeat"
+            [required]="!!password"
+            autocomplete="new-password"
+        /></label>
+        @if (message) {
+          <p role="status" class="fg-success">{{ message }}</p>
+        }
+        @if (error) {
+          <p role="alert" class="fg-danger">{{ error }}</p>
+        }
+        <button class="btn-solid theme-primary" [disabled]="f.invalid || busy">
+          Guardar cambios
+        </button>
+      </form>
+    </div>
+    <div class="col-12 lg:col-7">
+      <h2>Mis pedidos</h2>
+      @for (o of orders; track o.id) {
+        <article class="card p-7 mb-5">
+          <div class="d-flex justify-content-between gap-5">
+            <strong>#{{ o.id.slice(0, 8) }}</strong
+            ><span class="badge theme-primary">{{ o.estado }}</span>
+          </div>
+          <p class="mt-4">{{ o.fecha | date: 'dd/MM/yyyy HH:mm' }} · {{ o.entrega }}</p>
+          @for (l of o.items; track l.id) {
+            <p>{{ l.cantidad }} × {{ l.nombre }} · {{ money(l.precio * l.cantidad) }}</p>
+          }
+          <strong>{{ money(o.total) }}</strong
+          ><small>{{ o.pago }} · {{ o.pagado ? 'Pagado' : 'Pago pendiente' }}</small>
+        </article>
+      } @empty {
+        <p>Aún no tienes pedidos asociados a tu cuenta.</p>
+      }
+    </div>
+  </div>
+</section>

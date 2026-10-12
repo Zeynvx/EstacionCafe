@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
-
+import { Catalog } from '../../shared/catalog';
 @Component({
-  imports: [RouterLink],
   selector: 'app-postres',
-  styleUrl: './postres.css',
-  templateUrl: './postres.html',
+  imports: [Catalog],
+  template: '<app-catalog mode="postres" />',
 })
 export class Postres {}

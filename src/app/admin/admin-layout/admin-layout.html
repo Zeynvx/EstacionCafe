@@ -1,141 +1,37 @@
-<div class="admin-shell">
-  <aside class="admin-sidebar">
-    <a class="admin-brand" href="#" aria-label="Ir al inicio del administrador">
-      <span class="brand-mark">EC</span>
-      <span class="brand-copy">
-        <strong>ESTACIÓN CAFÉ</strong>
-        <small>PANEL ADMIN</small>
-      </span>
-    </a>
-
-    <div class="sidebar-section">
-      <span class="sidebar-label">Menú principal</span>
-      <nav class="sidebar-nav" aria-label="Navegación del administrador">
-        <a class="nav-item active" href="#" aria-current="page">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 13h6V4H4v9Zm0 7h6v-4H4v4Zm10 0h6v-9h-6v9Zm0-16v4h6V4h-6Z"/></svg>
-          <span>Resumen</span>
-        </a>
-        <a class="nav-item" href="#">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5h14v14H5V5Zm0-2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2H5Zm2 5h10v2H7V8Zm0 4h7v2H7v-2Z"/></svg>
-          <span>Pedidos</span>
-          <small class="nav-badge">12</small>
-        </a>
-        <a class="nav-item" href="#">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v14H4V5Zm0-2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2H4Zm3 5h10v2H7V8Zm0 4h6v2H7v-2Z"/></svg>
-          <span>Productos</span>
-        </a>
-        <a class="nav-item" href="#">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 2.2 4.45 4.91.71-3.55 3.46.84 4.89L12 14.2l-4.4 2.31.84-4.89-3.55-3.46 4.91-.71L12 3Z"/></svg>
-          <span>Promociones</span>
-        </a>
-        <a class="nav-item" href="#">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm0-2a2 2 0 1 1 0-4 2 2 0 0 1 0 4Zm0 4c-4.42 0-8 2.24-8 5v2h16v-2c0-2.76-3.58-5-8-5Zm0 2c2.75 0 5.13 1.13 5.8 2H6.2c.67-.87 3.05-2 5.8-2Z"/></svg>
-          <span>Clientes</span>
-        </a>
+<div class="container-fluid min-vh-100">
+  <div class="row">
+    <aside class="col-12 lg:col-3 xl:col-2 bg-primary fg-contrast-primary p-7">
+      <a routerLink="/admin" class="fg-reset text-decoration-none fw-bold fs-lg">ESTACIÓN CAFÉ</a>
+      <p class="fs-sm mt-3">PANEL ADMINISTRATIVO</p>
+      <nav class="d-flex flex-wrap lg:flex-column gap-3 my-9" aria-label="Administración">
+        @for (s of sections; track s[0]) {
+          @if (store.allowed(s[0])) {
+            <a
+              [routerLink]="'/admin/' + s[0]"
+              routerLinkActive="bg-white"
+              #active="routerLinkActive"
+              [class.fg-primary]="active.isActive"
+              [class.fg-contrast-primary]="!active.isActive"
+              ariaCurrentWhenActive="page"
+              class="d-block p-4 rounded text-decoration-none"
+              >{{ s[1] }}</a
+            >
+          }
+        }
       </nav>
-    </div>
-
-    <div class="sidebar-section sidebar-bottom">
-      <span class="sidebar-label">Administración</span>
-      <nav class="sidebar-nav" aria-label="Configuración">
-        <a class="nav-item" href="#">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.43 12.98a7.8 7.8 0 0 0 .05-.98c0-.33-.02-.66-.07-.98l2.11-1.65-2-3.46-2.49 1a7.4 7.4 0 0 0-1.7-.98L15 3h-4l-.38 2.93c-.61.25-1.18.58-1.7.98l-2.49-1-2 3.46 2.11 1.65a7.8 7.8 0 0 0-.05.98c0 .33.02.66.07.98l-2.11 1.65 2 3.46 2.49-1c.52.4 1.09.73 1.7.98L11 21h4l.38-2.93c.61-.25 1.18-.58 1.7-.98l2.49 1 2-3.46-2.14-1.65ZM13 15.5A3.5 3.5 0 1 1 13 8a3.5 3.5 0 0 1 0 7.5Z"/></svg>
-          <span>Configuración</span>
-        </a>
-        <a class="nav-item" href="#">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 17v2H5V5h5v2H7v10h3Zm4-1 4-4-4-4v3H3v2h11v3Zm7-14H3a2 2 0 0 0-2 2v4h2V4h17v16H3v-4H1v4a2 2 0 0 0 2 2h18a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2Z"/></svg>
-          <span>Cerrar sesión</span>
-        </a>
-      </nav>
-    </div>
-  </aside>
-
-  <main class="admin-content">
-    <header class="admin-header">
-      <div>
-        <p class="eyebrow">Panel de control</p>
-        <h1>Buenos días,</h1>
-        <p class="header-subtitle">Este es el resumen de tu cafetería para hoy.</p>
+      <div class="border-top pt-5">
+        <p>
+          {{ store.user()?.nombre }}<small class="d-block">{{ store.user()?.rol }}</small>
+        </p>
+        <a routerLink="/inicio" class="d-block fg-reset mb-5">Ver tienda</a
+        ><button class="btn-outline" (click)="logout()">Cerrar sesión</button>
       </div>
-      <div class="header-actions">
-        <button class="icon-button" type="button" aria-label="Ver notificaciones">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9ZM10 21h4"/></svg>
-          <span class="notification-dot"></span>
-        </button>
-        <div class="admin-user">
-          <span class="avatar">AG</span>
-          <span><strong>Andrea García</strong><small>Administradora</small></span>
-          <span class="chevron">⌄</span>
-        </div>
-      </div>
-    </header>
-
-    <section class="stats-grid" aria-label="Resumen de métricas">
-      <article class="stat-card">
-        <div class="stat-icon sales-icon">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V5m0 14h16M7 16l3-4 3 2 5-7"/></svg>
-        </div>
-        <div class="stat-info"><span>Ventas de hoy</span><strong>S/ 2,480.50</strong><small class="positive">↑ 12.5% <em>vs. ayer</em></small></div>
-      </article>
-      <article class="stat-card">
-        <div class="stat-icon orders-icon">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12v18H6V3Zm3 4h6M9 11h6M9 15h4"/></svg>
-        </div>
-        <div class="stat-info"><span>Pedidos recibidos</span><strong>48</strong><small class="positive">↑ 8.2% <em>vs. ayer</em></small></div>
-      </article>
-      <article class="stat-card">
-        <div class="stat-icon clients-icon">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 20v-1.5c0-2.21-2.24-4-5-4s-5 1.79-5 4V20m5-7a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm5-6a3 3 0 0 1 0 5.8M18 14.5c1.8.42 3 1.5 3 3V20"/></svg>
-        </div>
-        <div class="stat-info"><span>Clientes nuevos</span><strong>24</strong><small class="positive">↑ 4.6% <em>vs. semana pasada</em></small></div>
-      </article>
-      <article class="stat-card">
-        <div class="stat-icon ticket-icon">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16v12H4V6Zm4 4h8M8 14h5"/></svg>
-        </div>
-        <div class="stat-info"><span>Ticket promedio</span><strong>S/ 51.68</strong><small class="positive">↑ 2.1% <em>vs. ayer</em></small></div>
-      </article>
-    </section>
-
-    <section class="dashboard-grid">
-      <article class="panel sales-panel">
-        <div class="panel-heading"><div><h2>Resumen de ventas</h2><p>Rendimiento de los últimos 7 días</p></div><button class="period-select" type="button">Últimos 7 días <span>⌄</span></button></div>
-        <div class="chart-area">
-          <div class="chart-y-axis"><span>S/ 3k</span><span>S/ 2k</span><span>S/ 1k</span><span>S/ 0</span></div>
-          <div class="chart">
-            <div class="chart-grid"><i></i><i></i><i></i><i></i></div>
-            <svg viewBox="0 0 600 190" preserveAspectRatio="none" role="img" aria-label="Gráfico de ventas ascendentes">
-              <defs><linearGradient id="chart-fill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c47d3b" stop-opacity=".28"/><stop offset="1" stop-color="#c47d3b" stop-opacity="0"/></linearGradient></defs>
-              <path class="chart-fill" d="M0 143 C35 131 42 142 80 119 S123 128 160 99 S205 114 240 83 S280 101 320 70 S370 91 400 54 S450 72 480 43 S535 59 600 20 V190 H0Z"/>
-              <path class="chart-line" d="M0 143 C35 131 42 142 80 119 S123 128 160 99 S205 114 240 83 S280 101 320 70 S370 91 400 54 S450 72 480 43 S535 59 600 20"/>
-              <circle cx="600" cy="20" r="5"/>
-            </svg>
-            <div class="chart-x-axis"><span>Lun</span><span>Mar</span><span>Mié</span><span>Jue</span><span>Vie</span><span>Sáb</span><span>Dom</span></div>
-          </div>
-        </div>
-      </article>
-
-      <article class="panel top-products">
-        <div class="panel-heading"><div><h2>Productos más vendidos</h2><p>Esta semana</p></div><a href="#">Ver todos</a></div>
-        <div class="product-row"><span class="product-number">01</span><span class="product-thumb coffee-thumb">☕</span><div><strong>Latte Clásico</strong><small>142 unidades</small></div><b>S/ 2,130</b></div>
-        <div class="product-row"><span class="product-number">02</span><span class="product-thumb dessert-thumb">♨</span><div><strong>Cheesecake de frutos rojos</strong><small>98 unidades</small></div><b>S/ 1,764</b></div>
-        <div class="product-row"><span class="product-number">03</span><span class="product-thumb brunch-thumb">◒</span><div><strong>Brunch Estación</strong><small>75 unidades</small></div><b>S/ 1,425</b></div>
-      </article>
-    </section>
-
-    <section class="panel recent-orders">
-      <div class="panel-heading"><div><h2>Pedidos recientes</h2><p>Últimas órdenes realizadas</p></div><a href="#">Ver todos los pedidos <span>→</span></a></div>
-      <div class="table-wrapper">
-        <table>
-          <thead><tr><th>Pedido</th><th>Cliente</th><th>Fecha y hora</th><th>Total</th><th>Estado</th><th></th></tr></thead>
-          <tbody>
-            <tr><td><strong class="order-id">#EC-1048</strong></td><td><strong>María López</strong></td><td>Hoy, 10:42 am</td><td><strong>S/ 68.50</strong></td><td><span class="status completed">Completado</span></td><td><button class="more-button" type="button" aria-label="Más opciones">•••</button></td></tr>
-            <tr><td><strong class="order-id">#EC-1047</strong></td><td><strong>Carlos Ramírez</strong></td><td>Hoy, 10:35 am</td><td><strong>S/ 42.00</strong></td><td><span class="status pending">En preparación</span></td><td><button class="more-button" type="button" aria-label="Más opciones">•••</button></td></tr>
-            <tr><td><strong class="order-id">#EC-1046</strong></td><td><strong>Lucía Torres</strong></td><td>Hoy, 10:18 am</td><td><strong>S/ 95.80</strong></td><td><span class="status completed">Completado</span></td><td><button class="more-button" type="button" aria-label="Más opciones">•••</button></td></tr>
-            <tr><td><strong class="order-id">#EC-1045</strong></td><td><strong>Diego Vargas</strong></td><td>Hoy, 09:56 am</td><td><strong>S/ 31.50</strong></td><td><span class="status cancelled">Cancelado</span></td><td><button class="more-button" type="button" aria-label="Más opciones">•••</button></td></tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-  </main>
+    </aside>
+    <main class="col-12 lg:col-9 xl:col-10 p-7 lg:p-12">
+      @if (store.storageError()) {
+        <p class="alert theme-danger" role="alert">{{ store.storageError() }}</p>
+      }
+      <router-outlet />
+    </main>
+  </div>
 </div>
