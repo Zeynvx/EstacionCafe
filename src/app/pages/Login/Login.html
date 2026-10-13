@@ -91,17 +91,17 @@
         <details>
           <summary>Términos de la demostración</summary>
           <p>
-            Los datos se guardan únicamente en este navegador. Los pedidos no se envían a una
-            cafetería y no generan cobros. No utilices contraseñas de otros servicios.
+            Los datos se guardan en la base de datos de demostración. Los pedidos no generan
+            cobros reales. No utilices contraseñas de otros servicios.
           </p>
         </details>
         <button class="btn-solid theme-primary" [disabled]="registerForm.invalid || busy">
           Registrarme
         </button>
-        @if (!store.users().length) {
+        @if (store.bootstrapAvailable()) {
           <div class="border-top pt-5">
             <p class="fs-sm">
-              Primera configuración local: puedes crear el administrador de esta demostración con
+              Primera configuración: puedes crear el administrador inicial de esta demostración con
               estos datos. Su usuario será admin.local.
             </p>
             <button
@@ -110,7 +110,7 @@
               [disabled]="registerForm.invalid || busy"
               (click)="register(true)"
             >
-              Configurar administrador local
+              Configurar administrador
             </button>
           </div>
         }

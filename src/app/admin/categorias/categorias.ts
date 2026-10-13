@@ -12,13 +12,12 @@ export class CategoriesPage {
   draft: Category = this.empty(); editing = false; error = ''; notice = '';
   private empty(): Category { return { id: '', nombre: '', postre: false }; }
   open(category?: Category) { this.editing = !!category; this.draft = category ? { ...category } : this.empty(); this.error = ''; this.editor.nativeElement.showModal(); }
-  save(form: NgForm) {
+  async save(form: NgForm) {
     this.error = ''; if (form.invalid) { form.control.markAllAsTouched(); return; }
     const id = this.editing ? this.draft.id : this.slug(this.draft.nombre);
     if (!this.editing && this.service.list().some(c => c.nombre.toLowerCase() === this.draft.nombre.trim().toLowerCase())) { this.error = 'Esta categoría ya existe.'; return; }
-    this.service.save({ ...this.draft, id, nombre: this.draft.nombre.trim() }, this.editing);
-    this.notice = 'Categoría guardada.'; this.editor.nativeElement.close();
+    try { await this.service.save({ ...this.draft, id, nombre: this.draft.nombre.trim() }, this.editing); this.notice = 'Categoría guardada.'; this.editor.nativeElement.close(); } catch (e) { this.error = (e as Error).message; }
   }
-  remove(id: string) { if (!confirm('¿Eliminar esta categoría?')) return; try { this.service.delete(id); this.notice = 'Categoría eliminada.'; } catch (e) { this.error = (e as Error).message; } }
+  async remove(id: string) { if (!confirm('¿Eliminar esta categoría?')) return; try { await this.service.delete(id); this.notice = 'Categoría eliminada.'; } catch (e) { this.error = (e as Error).message; } }
   private slug(value: string) { return value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''); }
 }

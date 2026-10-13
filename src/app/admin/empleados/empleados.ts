@@ -93,10 +93,10 @@ export class WorkersPage {
       this.busy = false;
     }
   }
-  remove(id: string) {
+  async remove(id: string) {
     if (!confirm('¿Eliminar este empleado?')) return;
     try {
-      this.service.delete(id);
+      await this.service.delete(id);
       this.notice = 'Empleado eliminado.';
     } catch (e) {
       this.error = (e as Error).message;

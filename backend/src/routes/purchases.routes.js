@@ -1,0 +1,10 @@
+const router = require('express').Router();
+const controller = require('../controllers/purchases.controller');
+const { authenticate, allowRoles } = require('../middleware/auth.middleware');
+router.use(authenticate, allowRoles('Administrador', 'Logistica'));
+router.get('/', controller.list);
+router.post('/', controller.create);
+router.put('/:id', controller.update);
+router.delete('/:id', controller.remove);
+router.post('/:id/receive', controller.receive);
+module.exports = router;

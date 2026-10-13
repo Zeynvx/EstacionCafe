@@ -5,13 +5,13 @@ import { Stock, Store } from '../../core/store';
 export class StockService {
   private store = inject(Store);
   list() { return this.store.stock(); }
-  save(item: Stock, editing: boolean) {
+  async save(item: Stock, editing: boolean) {
     const original = this.store.stock().find(row => row.id === item.id);
     if (editing && original?.unidad !== item.unidad && this.store.purchases().some(purchase => purchase.insumo === item.id)) throw new Error('No cambies la unidad de un insumo con compras asociadas.');
-    this.store.stock.update(rows => editing ? rows.map(row => row.id === item.id ? item : row) : [...rows, item]); this.store.persist();
+    this.store.stock.update(rows => editing ? rows.map(row => row.id === item.id ? item : row) : [...rows, item]); await this.store.persist();
   }
-  delete(id: string) {
+  async delete(id: string) {
     if (this.store.purchases().some(purchase => purchase.insumo === id)) throw new Error('El insumo tiene compras asociadas.');
-    this.store.stock.update(rows => rows.filter(row => row.id !== id)); this.store.persist();
+    await this.store.deleteRecord('stock', id); this.store.stock.update(rows => rows.filter(row => row.id !== id)); await this.store.persist();
   }
 }

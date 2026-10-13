@@ -10,6 +10,6 @@ export class SuppliersPage {
   rows = computed<TableRow[]>(() => this.service.list().map(s => ({ id: s.id, cells: [s.nombre, s.correo, s.telefono], actions: ['Editar', 'Eliminar'] })));
   private empty(): Supplier { return { id: '', nombre: '', correo: '', telefono: '' }; }
   open(item?: Supplier) { this.editing = !!item; this.draft = item ? { ...item } : this.empty(); this.error = ''; this.editor.nativeElement.showModal(); }
-  save(form: NgForm) { this.error = ''; if (form.invalid) { form.control.markAllAsTouched(); return; } try { this.service.save({ ...this.draft, id: this.editing ? this.draft.id : crypto.randomUUID(), nombre: this.draft.nombre.trim() }, this.editing); this.notice = 'Proveedor guardado.'; this.editor.nativeElement.close(); } catch (e) { this.error = (e as Error).message; } }
-  remove(id: string) { if (!confirm('¿Eliminar este proveedor?')) return; try { this.service.delete(id); this.notice = 'Proveedor eliminado.'; } catch (e) { this.error = (e as Error).message; } }
+  async save(form: NgForm) { this.error = ''; if (form.invalid) { form.control.markAllAsTouched(); return; } try { await this.service.save({ ...this.draft, id: this.editing ? this.draft.id : crypto.randomUUID(), nombre: this.draft.nombre.trim() }, this.editing); this.notice = 'Proveedor guardado.'; this.editor.nativeElement.close(); } catch (e) { this.error = (e as Error).message; } }
+  async remove(id: string) { if (!confirm('¿Eliminar este proveedor?')) return; try { await this.service.delete(id); this.notice = 'Proveedor eliminado.'; } catch (e) { this.error = (e as Error).message; } }
 }

@@ -35,7 +35,7 @@ export class LoginComponent {
       this.error = 'Las contraseñas no coinciden.';
       return;
     }
-    if (!this.accepted || (admin && this.store.users().length)) return;
+    if (!this.accepted) return;
     this.busy = true;
     try {
       const u = await this.store.saveUser(
@@ -52,7 +52,7 @@ export class LoginComponent {
         },
         this.newPassword,
       );
-      await this.store.login(admin ? u.usuario : u.correo, this.newPassword);
+      if (admin) await this.store.login(u.usuario, this.newPassword);
       await this.router.navigateByUrl(admin ? '/admin' : '/usuario');
     } catch (e) {
       this.error = (e as Error).message;

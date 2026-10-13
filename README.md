@@ -17,7 +17,7 @@ Utiliza una versión de Node compatible con el Angular instalado. Se verificó c
 
 1. Abre `/login` en un navegador sin cuentas creadas en esta aplicación.
 2. Completa los datos del formulario de registro y acepta los términos de demostración.
-3. Pulsa **Configurar administrador local**. Se crea el usuario `admin.local` con la contraseña que elegiste.
+3. Pulsa **Configurar administrador**. Se crea el primer usuario `admin.local` con la contraseña que elegiste.
 4. Desde `/admin/empleados`, registra al personal. El usuario se genera como `primernombre.primerapellido`; se admite un sufijo numérico para homónimos.
 5. Los clientes se registran en el mismo formulario mediante **Registrarme**, y acceden con correo y contraseña.
 
@@ -50,9 +50,9 @@ Cada insumo tiene una unidad (`kg`, `g`, `L`, `mL` o `unidad`), existencia y mí
 
 ## Persistencia y alcance
 
-Este repositorio contiene solo frontend y aún no incluye un servidor. `Store` accede a los datos por `ApiService`. Por defecto `API_MODE` es `mock`, que simula endpoints y persiste las colecciones en el almacenamiento local; el carrito también permanece local. La URL base configurable está en `src/app/core/api.config.ts`. El modo `http` habilita las llamadas CRUD para la futura API, pero todavía requiere integrar autenticación y autorización de servidor antes de conectar datos reales.
+El frontend usa `ApiService` con `API_MODE = 'http'` y la URL base configurable en `src/app/core/api.config.ts`. Para iniciar el backend Express y conectarlo a Microsoft SQL Server, revisa [`backend/README.md`](backend/README.md) y configura `backend/.env` desde el ejemplo. El carrito continúa local.
 
-No hay cobros reales, envío de correos, integración de billeteras ni pasarela de tarjetas. Todos los pagos nuevos quedan pendientes; caja o administración pueden confirmar efectivo. La pantalla no recopila datos de tarjeta. La especificación del backend y sus endpoints está en [API_DOCUMENTACION.md](API_DOCUMENTACION.md); antes de producción hacen falta autenticación y autorización del servidor, validación de precios y roles en servidor, sesiones seguras y proveedor de pagos.
+No hay cobros reales, envío de correos, integración de billeteras ni pasarela de tarjetas. Los pagos nuevos quedan pendientes; caja o administración pueden confirmar efectivo. La pantalla no recopila datos de tarjeta. La especificación de endpoints está en [API_DOCUMENTACION.md](API_DOCUMENTACION.md).
 
 Los pedidos realizados sin iniciar sesión permanecen como pedidos invitados; no se vinculan automáticamente a cuentas por coincidencia de correo. No hay sincronización entre equipos o pestañas abiertas.
 

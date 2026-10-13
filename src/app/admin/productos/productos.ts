@@ -12,12 +12,12 @@ export class ProductsPage {
   draft: Product = this.empty(); editing = false; error = ''; notice = '';
   private empty(): Product { return { id: 0, nombre: '', descripcion: '', categoria: '', imagen: '', precio: 0, descuento: 0, personalizable: false, adicionales: '' }; }
   open(product?: Product) { this.editing = !!product; this.draft = product ? { ...product } : this.empty(); this.error = ''; this.editor.nativeElement.showModal(); }
-  save(form: NgForm) {
+  async save(form: NgForm) {
     this.error = ''; if (form.invalid) { form.control.markAllAsTouched(); return; }
     const image = this.draft.imagen.trim();
     if (!/^(https:\/\/|\/[^/])/.test(image)) { this.error = 'Usa una imagen https o una ruta local absoluta.'; return; }
     if (this.draft.adicionales && this.draft.adicionales.split(',').some(x => !/^.+:\d+(\.\d{1,2})?$/.test(x.trim()))) { this.error = 'Formato de adicionales: Shot extra:2,Canela:0'; return; }
-    this.service.save({ ...this.draft, id: this.editing ? this.draft.id : Date.now(), nombre: this.draft.nombre.trim(), imagen: image }, this.editing); this.notice = 'Producto guardado.'; this.editor.nativeElement.close();
+    try { await this.service.save({ ...this.draft, id: this.editing ? this.draft.id : Math.max(0, ...this.service.list().map(p => p.id)) + 1, nombre: this.draft.nombre.trim(), imagen: image }, this.editing); this.notice = 'Producto guardado.'; this.editor.nativeElement.close(); } catch (e) { this.error = (e as Error).message; }
   }
-  remove(id: string) { if (confirm('¿Eliminar este producto?')) { this.service.delete(Number(id)); this.notice = 'Producto eliminado.'; } }
+  async remove(id: string) { if (confirm('¿Eliminar este producto?')) { try { await this.service.delete(Number(id)); this.notice = 'Producto eliminado.'; } catch (e) { this.error = (e as Error).message; } } }
 }

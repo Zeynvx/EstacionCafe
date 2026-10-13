@@ -30,13 +30,11 @@ export class Usuario {
     try {
       if (this.password) {
         if (this.password !== this.repeat) throw new Error('Las contraseñas no coinciden.');
-        const u = this.store.user()!;
-        if ((await this.store.credentials(this.current, u.salt)).hash !== u.hash)
-          throw new Error('La contraseña actual es incorrecta.');
       }
       await this.store.saveUser(
         { ...this.data, correo: this.store.user()!.correo, rol: 'Cliente' },
         this.password,
+        this.current,
       );
       this.password = '';
       this.current = '';
@@ -49,8 +47,8 @@ export class Usuario {
       this.changeDetector.markForCheck();
     }
   }
-  logout() {
-    this.store.logout();
-    this.router.navigateByUrl('/inicio');
+  async logout() {
+    await this.store.logout();
+    await this.router.navigateByUrl('/inicio');
   }
 }

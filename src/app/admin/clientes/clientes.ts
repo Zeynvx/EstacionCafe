@@ -73,10 +73,10 @@ export class CustomersPage {
       this.busy = false;
     }
   }
-  remove(id: string) {
+  async remove(id: string) {
     if (!confirm('¿Eliminar este cliente?')) return;
     try {
-      this.service.delete(id);
+      await this.service.delete(id);
       this.notice = 'Cliente eliminado.';
     } catch (e) {
       this.error = (e as Error).message;

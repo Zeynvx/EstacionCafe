@@ -4,7 +4,7 @@
   Ejecutar en SSMS o Azure Data Studio. Crea la BD si no existe y luego las tablas.
   Seguridad: Usuarios guarda hash y salt, nunca contrasenas en texto plano.
 */
-IF DB_ID(N'EstacionCafe') IS NULL
+IF DB_ID(N'EstacionCafeDb') IS NULL
     CREATE DATABASE EstacionCafe;
 GO
 USE EstacionCafe;

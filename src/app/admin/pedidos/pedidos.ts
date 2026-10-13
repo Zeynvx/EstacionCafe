@@ -22,11 +22,11 @@ export class OrdersPage {
     this.draft.items = [...this.items, { id: crypto.randomUUID(), productoId: p.id, nombre: p.nombre, precio: Math.round((price(p) + extras.reduce((sum, e) => sum + e.cost, 0)) * 100) / 100, cantidad: this.amount, leche: p.personalizable ? this.milk : '', endulzante: p.personalizable ? this.sweetener : '', extras: extras.map(e => e.name), indicaciones: '' }]; this.extras = [];
   }
   removeItem(id: string) { this.draft.items = this.items.filter(item => item.id !== id); }
-  save(form: NgForm) {
+  async save(form: NgForm) {
     this.error = ''; if (form.invalid) { form.control.markAllAsTouched(); return; }
     if (!this.items.length || this.items.some(item => !Number.isInteger(item.cantidad) || item.cantidad < 1 || item.cantidad > 99)) { this.error = 'El pedido debe tener productos con cantidades válidas.'; return; }
     if (this.draft.entrega === 'Mesa') { if (!this.draft.mesa || Number(this.draft.mesa) < 1) { this.error = 'Indica el número de mesa.'; return; } this.draft.direccion = ''; } else { if (!this.draft.direccion.trim()) { this.error = 'Indica la dirección.'; return; } this.draft.mesa = ''; }
-    try { this.service.save({ ...this.draft, total: total(this.items) }, this.editing); this.notice = 'Pedido guardado.'; this.editor.nativeElement.close(); } catch (e) { this.error = (e as Error).message; }
+    try { await this.service.save({ ...this.draft, total: total(this.items) }, this.editing); this.notice = 'Pedido guardado.'; this.editor.nativeElement.close(); } catch (e) { this.error = (e as Error).message; }
   }
-  action(event: {id: string; action: string}) { const order = this.service.list().find(o => o.id === event.id); if (!order) return; if (event.action === 'Ver') this.open(order, true); else if (event.action === 'Editar') this.open(order); else if (event.action === 'Finalizar') { this.service.finish(order.id); this.notice = 'Pedido finalizado.'; } else if (event.action === 'Confirmar pago') { this.service.confirmCash(order.id); this.notice = 'Pago en efectivo confirmado.'; } }
+  async action(event: {id: string; action: string}) { const order = this.service.list().find(o => o.id === event.id); if (!order) return; if (event.action === 'Ver') this.open(order, true); else if (event.action === 'Editar') this.open(order); else if (event.action === 'Finalizar') { await this.service.finish(order.id); this.notice = 'Pedido finalizado.'; } else if (event.action === 'Confirmar pago') { await this.service.confirmCash(order.id); this.notice = 'Pago en efectivo confirmado.'; } }
 }

@@ -5,9 +5,9 @@ import { Product, Store } from '../../core/store';
 export class ProductosService {
   private store = inject(Store);
   list() { return this.store.products(); }
-  save(product: Product, editing: boolean) {
+  async save(product: Product, editing: boolean) {
     this.store.products.update(rows => editing ? rows.map(row => row.id === product.id ? product : row) : [...rows, product]);
-    this.store.persist();
+    await this.store.persist();
   }
-  delete(id: number) { this.store.products.update(rows => rows.filter(row => row.id !== id)); this.store.persist(); }
+  async delete(id: number) { await this.store.deleteRecord('products', id); this.store.products.update(rows => rows.filter(row => row.id !== id)); await this.store.persist(); }
 }

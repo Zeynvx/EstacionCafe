@@ -1,7 +1,7 @@
   import { Injectable, computed, inject, signal } from '@angular/core';
   import menu from './menu.json';
   import { ApiService } from './api.service';
-  import { API_RESOURCES, ApiResource } from './api.config';
+import { API_MODE, API_RESOURCES, ApiResource } from './api.config';
 
   export type Role = 'Administrador' | 'Logistica' | 'Barista / Cocina' | 'Caja' | 'Cliente';
   export interface Product {
@@ -25,8 +25,8 @@
     direccion: string;
     rol: Role;
     usuario: string;
-    hash: string;
-    salt: string;
+    hash?: string;
+    salt?: string;
   }
   export interface Line {
     id: string;
@@ -101,6 +101,7 @@
     private synced = new Map<ApiResource, any[]>();
     private pendingSync = new Map<ApiResource, Promise<void>>();
     loading = signal(true);
+    bootstrapAvailable = signal(false);
     products = signal<Product[]>(read('products', menu));
     categories = signal<Category[]>(
       read('categories', [
@@ -122,7 +123,8 @@
     purchases = signal<Purchase[]>(read('purchases', []));
     cart = signal<Line[]>(read('cart', []));
     sessionId = signal<string | null>(sessionStorage.getItem('ec.session'));
-    user = computed(() => this.users().find((u) => u.id === this.sessionId()) ?? null);
+    authenticatedUser = signal<User | null>(null);
+    user = computed(() => this.authenticatedUser() ?? this.users().find((u) => u.id === this.sessionId()) ?? null);
     count = computed(() => this.cart().reduce((n, l) => n + l.cantidad, 0));
     cartTotal = computed(() => total(this.cart()));
     storageError = signal('');
@@ -138,15 +140,19 @@
           suppliers: this.suppliers(),
           purchases: this.purchases(),
         };
-        const loaded = await Promise.all(
-          API_RESOURCES.map((resource) =>
-            this.api.getCollection<any>(resource, initial[resource] as any[]),
-          ),
-        );
-        API_RESOURCES.forEach((resource, index) => {
+        const resources: ApiResource[] = API_MODE === 'http' ? ['products', 'categories'] : [...API_RESOURCES];
+        const loaded = await Promise.all(resources.map((resource) => this.api.getCollection<any>(resource, initial[resource] as any[])));
+        resources.forEach((resource, index) => {
           (this[resource] as any).set(loaded[index]);
           this.synced.set(resource, structuredClone(loaded[index]));
         });
+        if (API_MODE === 'http') this.bootstrapAvailable.set((await this.api.bootstrapAvailable()).disponible);
+        if (API_MODE === 'http' && sessionStorage.getItem('ec.accessToken')) {
+          try {
+            const user = await this.me();
+            await this.loadPrivateCollections(user);
+          } catch { this.logout(); }
+        }
       } catch {
         this.storageError.set('No se pudo conectar con la API. Revisa la URL y que el servidor esté disponible.');
       } finally {
@@ -154,13 +160,58 @@
       }
     }
 
-    persist() {
+    private async me(): Promise<User> {
+      const user = await this.api.me();
+      this.authenticatedUser.set(user);
+      this.sessionId.set(user.id);
+      return user;
+    }
+
+    private async loadPrivateCollections(user: User) {
+      for (const resource of ['users', 'orders', 'stock', 'suppliers', 'purchases'] as ApiResource[]) {
+        (this[resource] as any).set([]);
+        this.synced.set(resource, []);
+      }
+      const resources: ApiResource[] = user.rol === 'Administrador'
+        ? ['users', 'orders', 'stock', 'suppliers', 'purchases']
+        : user.rol === 'Logistica'
+          ? ['orders', 'stock', 'suppliers', 'purchases']
+          : ['orders'];
+      const loaded = await Promise.all(resources.map((resource) => this.api.getCollection<any>(resource, [])));
+      resources.forEach((resource, index) => {
+        (this[resource] as any).set(loaded[index]);
+        this.synced.set(resource, structuredClone(loaded[index]));
+      });
+      if (user.rol === 'Cliente') {
+        this.users.update((rows) => rows.some((row) => row.id === user.id) ? rows.map((row) => row.id === user.id ? user : row) : [...rows, user]);
+      }
+    }
+
+    async savePurchaseRecord(purchase: Purchase, editing: boolean) {
+      const saved = await this.api.savePurchase(purchase, editing);
+      const rows = editing ? this.purchases().map((row) => row.id === purchase.id ? saved : row) : [saved, ...this.purchases()];
+      this.purchases.set(rows);
+      this.synced.set('purchases', structuredClone(rows));
+      return saved as Purchase;
+    }
+
+    async deleteRecord(resource: ApiResource, id: string | number) {
+      if (API_MODE === 'http') {
+        await this.api.delete(resource, id);
+        const current = structuredClone((this[resource] as any)() as any[]);
+        this.synced.set(resource, current.filter((item) => String(item.id) !== String(id)));
+      }
+    }
+
+    persist(): Promise<void> {
       try {
         localStorage.setItem('ec.cart', JSON.stringify(this.cart()));
       } catch {
         this.storageError.set('No se pudo guardar el carrito en este navegador.');
       }
+      const jobs: Promise<void>[] = [];
       for (const resource of API_RESOURCES) {
+        if (API_MODE === 'http' && resource === 'users') continue;
         const rows = structuredClone((this[resource] as any)() as any[]);
         if (JSON.stringify(this.synced.get(resource) ?? []) === JSON.stringify(rows)) continue;
         const queued = (this.pendingSync.get(resource) ?? Promise.resolve())
@@ -169,11 +220,15 @@
             await this.api.syncCollection(resource, previous, rows);
             this.synced.set(resource, rows);
           })
-          .catch(() => {
+          .catch((error) => {
             this.storageError.set(`No se pudieron guardar los cambios de ${resource} en la API.`);
+            this.pendingSync.delete(resource);
+            throw error;
           });
         this.pendingSync.set(resource, queued);
+        jobs.push(queued);
       }
+      return Promise.all(jobs).then(() => undefined);
     }
     allowed(section: string) {
       const role = this.user()?.rol;
@@ -220,21 +275,60 @@
       };
     }
     async login(login: string, password: string) {
+      if (API_MODE === 'http') {
+        const response = await this.api.login(login, password);
+        sessionStorage.setItem('ec.accessToken', response.accessToken);
+        sessionStorage.setItem('ec.session', response.user.id);
+        this.sessionId.set(response.user.id);
+        this.authenticatedUser.set(response.user);
+        await this.loadPrivateCollections(response.user);
+        return response.user;
+      }
       const user = this.users().find(
         (u) =>
           (u.rol === 'Cliente' ? u.correo : u.usuario).toLowerCase() === login.trim().toLowerCase(),
       );
-      if (!user || (await this.credentials(password, user.salt)).hash !== user.hash)
+      if (!user?.hash || !user.salt || (await this.credentials(password, user.salt)).hash !== user.hash)
         throw new Error('Usuario o contraseña incorrectos.');
       this.sessionId.set(user.id);
       sessionStorage.setItem('ec.session', user.id);
       return user;
     }
-    logout() {
+    async logout() {
+      if (API_MODE === 'http' && sessionStorage.getItem('ec.accessToken')) {
+        try { await this.api.logout(); } catch { /* Logout local se completa aunque la red no responda. */ }
+      }
       this.sessionId.set(null);
+      this.authenticatedUser.set(null);
       sessionStorage.removeItem('ec.session');
+      sessionStorage.removeItem('ec.accessToken');
+      if (API_MODE === 'http') {
+        for (const resource of ['users', 'orders', 'stock', 'suppliers', 'purchases'] as ApiResource[]) {
+          (this[resource] as any).set([]);
+          this.synced.set(resource, []);
+        }
+      }
     }
-    async saveUser(data: Omit<User, 'hash' | 'salt'>, password: string) {
+    async saveUser(data: Omit<User, 'hash' | 'salt'>, password: string, currentPassword = '') {
+      if (API_MODE === 'http') {
+        const existing = this.users().some((u) => u.id === data.id);
+        let user: User;
+        if (!existing && (data.rol === 'Administrador' || data.rol === 'Cliente')) user = await this.api.register(data, password);
+        else if (data.id === this.user()?.id && data.rol === 'Cliente') {
+          user = await this.api.saveUser(data, '');
+          if (password) await this.api.changePassword(currentPassword, password);
+        } else user = await this.api.saveUser({ ...data, password } as any, password, !existing);
+        this.users.update((rows) => existing ? rows.map((row) => row.id === user.id ? user : row) : [...rows, user]);
+        this.synced.set('users', structuredClone(this.users()));
+        if (data.id === this.user()?.id || (!existing && data.rol === 'Cliente')) {
+          this.authenticatedUser.set(user);
+          this.sessionId.set(user.id);
+          sessionStorage.setItem('ec.session', user.id);
+          if (data.rol === 'Cliente') await this.loadPrivateCollections(user);
+        }
+        this.persist();
+        return user;
+      }
       const old = this.users().find((u) => u.id === data.id);
       if (
         this.users().some(
@@ -252,7 +346,7 @@
         : { hash: old!.hash, salt: old!.salt };
       const user = { ...data, correo: data.correo.trim().toLowerCase(), ...secret };
       this.users.update((a) => (old ? a.map((u) => (u.id === user.id ? user : u)) : [...a, user]));
-      this.persist();
+      void this.persist();
       return user;
     }
     place(data: Omit<Order, 'id' | 'fecha' | 'total' | 'estado' | 'pagado'>) {
@@ -269,11 +363,22 @@
         estado: 'Pendiente',
         pagado: false,
       };
-      this.orders.update((a) => [order, ...a]);
-      this.persist();
+      if (API_MODE === 'http') {
+        this.api.createOrder(order).then((saved) => {
+          this.orders.update((a) => [saved, ...a.filter((item) => item.id !== order.id)]);
+          this.synced.set('orders', structuredClone(this.orders()));
+        }).catch(() => {
+          this.orders.update((a) => a.filter((item) => item.id !== order.id));
+          this.synced.set('orders', structuredClone(this.orders()));
+          this.storageError.set('No se pudo crear el pedido en el servidor.');
+        });
+        this.synced.set('orders', structuredClone(this.orders()));
+      } else this.orders.update((a) => [order, ...a]);
+      if (API_MODE === 'mock') this.persist();
+      else { try { localStorage.setItem('ec.cart', JSON.stringify(this.cart())); } catch { this.storageError.set('No se pudo guardar el carrito en este navegador.'); } }
       return order;
     }
-    state(id: string, estado: string) {
+    async state(id: string, estado: string) {
       const order = this.orders().find((o) => o.id === id);
       if (!order || ['Finalizado', 'Cancelado'].includes(order.estado)) return;
       if (
@@ -281,11 +386,25 @@
         !(this.user()?.rol === 'Barista / Cocina' && estado === 'Finalizado')
       )
         return;
+      if (API_MODE === 'http') {
+        const saved = await this.api.setOrderStatus(id, estado);
+        this.orders.update((a) => a.map((o) => (o.id === id ? saved : o)));
+        this.synced.set('orders', structuredClone(this.orders()));
+        return;
+      }
       this.orders.update((a) => a.map((o) => (o.id === id ? { ...o, estado } : o)));
       this.persist();
     }
-    paid(id: string) {
+    async paid(id: string) {
       if (!this.canEditOrders()) return;
+      if (API_MODE === 'http') {
+        try {
+          const saved = await this.api.receiveOrder(id);
+          this.orders.update((a) => a.map((o) => (o.id === id ? saved : o)));
+          this.synced.set('orders', structuredClone(this.orders()));
+        } catch { this.storageError.set('No se pudo confirmar el pago del pedido.'); }
+        return;
+      }
       this.orders.update((a) =>
         a.map((o) =>
           o.id === id && o.pago === 'Efectivo' && o.estado !== 'Cancelado'
@@ -295,8 +414,17 @@
       );
       this.persist();
     }
-    receive(id: string) {
+    async receive(id: string) {
       if (!this.allowed('compras')) return;
+      if (API_MODE === 'http') {
+        try {
+          await this.api.receivePurchase(id);
+          const [stock, purchases] = await Promise.all([this.api.getCollection('stock', []), this.api.getCollection('purchases', [])]);
+          this.stock.set(stock); this.purchases.set(purchases);
+          this.synced.set('stock', structuredClone(stock)); this.synced.set('purchases', structuredClone(purchases));
+        } catch { this.storageError.set('No se pudo registrar la recepción de la compra.'); }
+        return;
+      }
       const p = this.purchases().find((p) => p.id === id);
       if (!p || p.recibida) return;
       this.stock.update((a) =>
